@@ -1,0 +1,15 @@
+{
+  "name": "prototypetabernaliteraria",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "pnpm -r dev"
+  },
+  "keywords": [],
+  "author": "Julian Spinoza",
+  "license": "ISC",
+  "packageManager": "pnpm@10.23.0",
+  "private": true
+}
