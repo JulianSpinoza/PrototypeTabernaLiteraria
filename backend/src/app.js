@@ -1,11 +1,15 @@
+import "dotenv/config";
+
 import express from "express";
 import cors from "cors";
 
 const app = express();
 
+const FRONTEND = process.env.FRONTEND_URL;
+
 app.use(
   cors({
-    origin: "http://localhost:8081",
+    origin: FRONTEND,
     credentials: true,
   })
 );
