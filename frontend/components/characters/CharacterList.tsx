@@ -19,8 +19,6 @@ export const CharacterList: React.FC<CharacterListProps> = ({
 }) => {
   return (
     <View>
-      <Text style={styles.title}>Tus personajes</Text>
-
       {characters.map((character) => (
         <CharacterCard
           key={character.id}

@@ -1,8 +1,10 @@
 import { CharacterList } from "@/components/characters/CharacterList";
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import { Character } from "./_layout";
+import { router } from "expo-router";
 
-export default function HomeScreen() {
+export default function CharactersScreen() {
 
   const characters = [
     {
@@ -17,13 +19,18 @@ export default function HomeScreen() {
     },
   ];
 
+  const handleSelectCharacter = (character: Character) => {
+    router.push({
+      pathname: "/character/[id]",
+      params: { id: character.id },
+    });
+  };
+
   return (
     <View style={styles.container}>
       <CharacterList
         characters={characters}
-        onSelect={(character) =>
-          console.log("Seleccionaste:", character.name)
-        }
+        onSelect={handleSelectCharacter}
       />
     </View>
   );
@@ -32,7 +39,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1C0F0A",
+    backgroundColor: "#200E0C",
     padding: 20,
   },
 });

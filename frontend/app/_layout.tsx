@@ -1,24 +1,40 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+export type Character = {
+  name: string,
+  id: string,
+  avatar: undefined,
+}
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Stack
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#e65e29ff",
+        },
+        headerTintColor: "#FFF",
+        headerTitleStyle: {
+          fontWeight: "600",
+        },
+      }}
+    >
+      {/* Lista de personajes */}
+      <Stack.Screen
+        name="index"
+        options={{
+          title: "Tus personajes",
+        }}
+      />
+
+      {/* Detalle del personaje */}
+      <Stack.Screen
+        name="character/[id]"
+        options={{
+          title: "Detalle del personaje",
+          headerBackTitle: "Volver",
+        }}
+      />
+    </Stack>
   );
 }
