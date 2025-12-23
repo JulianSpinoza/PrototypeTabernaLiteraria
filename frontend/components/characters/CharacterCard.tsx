@@ -4,6 +4,7 @@ import {
   Image,
   Pressable,
   StyleSheet,
+  View,
 } from "react-native";
 
 interface CharacterCardProps {
@@ -19,30 +20,44 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
 }) => {
   return (
     <Pressable style={styles.card} onPress={onPress}>
-      <Image source={avatar} style={styles.avatar} />
+      <View style={styles.image}>
+        <Image source={avatar} resizeMode="cover" style={styles.avatar} />
+      </View>
       <Text style={styles.name}>{name}</Text>
     </Pressable>
   );
 };
 
+const CARD_HEIGHT = 150;
+
 const styles = StyleSheet.create({
   card: {
+    height: CARD_HEIGHT,
+    minWidth: 500,
+    flex: 1,
+    flexGrow: 1,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#2B2B2B",
-    padding: 14,
+    padding: "3%",
     borderRadius: 12,
-    marginBottom: 12,
+    margin: 12,
+  },
+  image: {
+    height: CARD_HEIGHT*(1-0.3),     
+    aspectRatio: 1,       
+    borderRadius: "100%",    
+    overflow: 'hidden',
+    marginRight: "4%", 
   },
   avatar: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    marginRight: 12,
+    height: "100%",
+    width: "100%",
   },
   name: {
+    flex: 1,
     color: "#FFFFFF",
-    fontSize: 16,
+    fontSize: 36,
     fontWeight: "500",
   },
 });

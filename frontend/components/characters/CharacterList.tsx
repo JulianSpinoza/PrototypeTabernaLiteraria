@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { CharacterCard } from "./CharacterCard";
 
 interface Character {
@@ -18,7 +18,7 @@ export const CharacterList: React.FC<CharacterListProps> = ({
   onSelect,
 }) => {
   return (
-    <View>
+    <View style= {styles.container}>
       {characters.map((character) => (
         <CharacterCard
           key={character.id}
@@ -32,10 +32,10 @@ export const CharacterList: React.FC<CharacterListProps> = ({
 };
 
 const styles = StyleSheet.create({
-  title: {
-    color: "#FFFFFF",
-    fontSize: 20,
-    fontWeight: "600",
-    marginBottom: 16,
-  },
+  container: {
+    flexDirection: 'row',     
+    flexWrap: 'wrap',          
+    justifyContent: 'center', 
+    width: '100%',
+  }
 });
