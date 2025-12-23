@@ -1,4 +1,5 @@
 import { Stack } from "expo-router";
+import { Image } from "react-native";
 
 export type Character = {
   name: string,
@@ -24,6 +25,13 @@ export default function RootLayout() {
         name="index"
         options={{
           title: "Tus personajes",
+          headerTitle: () => (
+            <Image
+              style={{ width: 200 }}
+              resizeMode='contain'
+              source={require("@/assets/images/BannerPrincipal.png")}
+            />
+          ),
         }}
       />
 
