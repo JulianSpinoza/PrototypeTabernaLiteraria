@@ -11,14 +11,21 @@ export default function RootLayout() {
   return (
     <Stack
       screenOptions={{
-        header:DefaultHeader,
+        header: (props) => <DefaultHeader {...props}/>,
       }}
     >
-      {/* Lista de personajes */}
+      {/* Principal */}
       <Stack.Screen
         name="index"
         options={{
-          title: "Tus personajes",
+        }}
+      />
+
+      {/* Lista de personajes */}
+      <Stack.Screen
+        name="own-characters"
+        options={{
+          
         }}
       />
 
@@ -26,8 +33,9 @@ export default function RootLayout() {
       <Stack.Screen
         name="character/[id]"
         options={{
-          title: "Detalle del personaje",
           headerBackTitle: "Volver",
+          headerStyle: {backgroundColor:"#2E2EA3"},
+          headerBackIcon: require("@/assets/images/BannerMagos.png")
         }}
       />
     </Stack>
