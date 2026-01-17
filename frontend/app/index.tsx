@@ -2,7 +2,7 @@ import { CreatureCard } from "@/components/bestiary/CreatureCard";
 import { RangeFilter } from "@/components/filters/RangeFilter";
 import { TextFilter } from "@/components/filters/TextFilter";
 import { useState } from "react";
-import { View, StyleSheet, Text, useWindowDimensions, FlatList } from "react-native";
+import { View, StyleSheet, Text, useWindowDimensions, FlatList, ScrollView } from "react-native";
 
 export default function CreaturesScreen() {
 
@@ -15,7 +15,7 @@ export default function CreaturesScreen() {
       biome: "Templado",
       hp: 12,
       armor: 8,
-      image: "https://placehold.co/300x400",
+      image: require("@/assets/images/Comandante_Volk.png"),
     },
     {
       id: "2",
@@ -25,12 +25,92 @@ export default function CreaturesScreen() {
       biome: "Ígneo",
       hp: 40,
       armor: 20,
-      image: "https://placehold.co/300x400",
+      image: require("@/assets/images/Comandante_Volk.png"),
+    },
+    {
+      id: "2",
+      name: "Elemental de Fuego",
+      tier: "Alto",
+      habitat: "Volcán",
+      biome: "Ígneo",
+      hp: 40,
+      armor: 20,
+      image: require("@/assets/images/Comandante_Volk.png"),
+    },
+    {
+      id: "2",
+      name: "Elemental de Fuego",
+      tier: "Alto",
+      habitat: "Volcán",
+      biome: "Ígneo",
+      hp: 40,
+      armor: 20,
+      image: require("@/assets/images/Comandante_Volk.png"),
+    },
+    {
+      id: "2",
+      name: "Elemental de Fuego",
+      tier: "Alto",
+      habitat: "Volcán",
+      biome: "Ígneo",
+      hp: 40,
+      armor: 20,
+      image: require("@/assets/images/Comandante_Volk.png"),
+    },
+    {
+      id: "2",
+      name: "Elemental de Fuego",
+      tier: "Alto",
+      habitat: "Volcán",
+      biome: "Ígneo",
+      hp: 40,
+      armor: 20,
+      image: require("@/assets/images/Comandante_Volk.png"),
+    },
+    {
+      id: "2",
+      name: "Elemental de Fuego",
+      tier: "Alto",
+      habitat: "Volcán",
+      biome: "Ígneo",
+      hp: 40,
+      armor: 20,
+      image: require("@/assets/images/Comandante_Volk.png"),
+    },
+    {
+      id: "2",
+      name: "Elemental de Fuego",
+      tier: "Alto",
+      habitat: "Volcán",
+      biome: "Ígneo",
+      hp: 40,
+      armor: 20,
+      image: require("@/assets/images/Comandante_Volk.png"),
+    },
+    {
+      id: "2",
+      name: "Elemental de Fuego",
+      tier: "Alto",
+      habitat: "Volcán",
+      biome: "Ígneo",
+      hp: 40,
+      armor: 20,
+      image: require("@/assets/images/Comandante_Volk.png"),
+    },
+    {
+      id: "2",
+      name: "Elemental de Fuego",
+      tier: "Alto",
+      habitat: "Volcán",
+      biome: "Ígneo",
+      hp: 40,
+      armor: 20,
+      image: require("@/assets/images/Comandante_Volk.png"),
     },
   ];
 
   const { width } = useWindowDimensions();
-  const numColumns = width > 1000 ? 4 : width > 700 ? 3 : 2;
+  const numColumns = 4; //width > 1000 ? 4 : width > 700 ? 3 : 2;
 
   // 🎛 Estado de filtros
   const [tier, setTier] = useState("");
@@ -44,6 +124,7 @@ export default function CreaturesScreen() {
   return (
       <View style={styles.container}>
           <Text style={styles.title}>Criaturas</Text>
+
             {/* 🔤 Filtros de texto */}
             <View style={styles.textFiltersRow}>
               <TextFilter placeholder="Bioma" value={biome} onChange={setBiome} />
@@ -75,7 +156,16 @@ export default function CreaturesScreen() {
             </View>
 
             {/* 🃏 Grid de cartas */}
-            
+            <ScrollView>
+              <FlatList
+                key={"Bestiario"}
+                data={CREATURES}
+                horizontal
+                contentContainerStyle={styles.cardsContainer}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => <CreatureCard creature={item} />}
+                />
+            </ScrollView>
       </View>
         
   );
@@ -109,11 +199,6 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   cardsContainer: {
-    paddingHorizontal: 16,
-    paddingBottom: 40,
-  },
-  row: {
-    justifyContent: "space-between",
-    marginBottom: 16,
+    paddingHorizontal: 20,
   },
 });

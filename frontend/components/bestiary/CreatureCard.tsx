@@ -1,41 +1,38 @@
 // components/cards/CreatureCard.tsx
-import { View, Image, Text, StyleSheet } from "react-native";
+import { Creature } from "@/types/creature";
+import { View, Image, Text, StyleSheet, Pressable } from "react-native";
 
-type Creature = {
-      id: string,
-      name: string,
-      tier: string,
-      habitat: string,
-      biome: string,
-      hp: number,
-      armor: number,
-      image: string,
-    };
+type Props = {
+  creature: Creature
+}
 
-export function CreatureCard( creature  : Creature) {
+export function CreatureCard({creature}: Props) {
   return (
-    <View style={styles.card}>
-      <Image source={{ uri: creature.image }} style={styles.image} />
-      <Text style={styles.title}>{creature.name}</Text>
-    </View>
+    <Pressable style={styles.card}>
+      <Image 
+        source={ creature.image } 
+        style={styles.image}  />
+    </Pressable>
   );
 }
 
+const ASPECT_RATIO = 517 / 750;
+const CARD_WIDTH = 400;
+
 const styles = StyleSheet.create({
   card: {
-    width: 160,
+    width: CARD_WIDTH,
     backgroundColor: "#2b140f",
     borderRadius: 12,
-    padding: 8,
+    padding: CARD_WIDTH*0.05,
+    margin: 5,
+    overflow: "hidden",
+    aspectRatio: ASPECT_RATIO,
+    // Fuerza que el aspect ratio funcione
+    alignSelf: 'flex-start',
   },
   image: {
     width: "100%",
-    aspectRatio: 3 / 4,
-    borderRadius: 8,
-  },
-  title: {
-    color: "#fff",
-    marginTop: 6,
-    textAlign: "center",
+    height: "100%",
   },
 });
