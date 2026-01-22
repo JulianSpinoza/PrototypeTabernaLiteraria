@@ -17,7 +17,7 @@ export function CreatureCard({creature}: Props) {
 }
 
 const ASPECT_RATIO = 517 / 750;
-const CARD_WIDTH = 400;
+const CARD_WIDTH = 300;
 
 const styles = StyleSheet.create({
   card: {

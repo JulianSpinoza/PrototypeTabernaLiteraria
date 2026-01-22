@@ -161,6 +161,7 @@ export default function CreaturesScreen() {
                 key={"Bestiario"}
                 data={CREATURES}
                 horizontal
+                showsHorizontalScrollIndicator={true}
                 contentContainerStyle={styles.cardsContainer}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => <CreatureCard creature={item} />}

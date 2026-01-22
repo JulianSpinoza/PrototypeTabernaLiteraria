@@ -1,9 +1,29 @@
 
 import { Image, Pressable, Text, View, StyleSheet } from "react-native";
 import { router } from "expo-router";
-import { NativeStackHeaderProps } from "@react-navigation/native-stack";
+import { NativeStackHeaderProps, NativeStackNavigationOptions } from "@react-navigation/native-stack";
+import { RutasPrincipales, useRutas } from "@/hooks/useRutas"; // Revisar posible hook
+import { useEffect } from "react";
 
-export function DefaultHeader ({navigation,route,options,back}:NativeStackHeaderProps) {
+export type CustomOptions = NativeStackNavigationOptions & {
+  rutasAdicionales?: RutasPrincipales | RutasPrincipales[];
+};
+
+export interface DefaultHeaderProps extends Omit<NativeStackHeaderProps, 'options'> {
+  options: CustomOptions;
+}
+
+export function DefaultHeader ({navigation,route,options,back}:DefaultHeaderProps) {
+
+    const rutasBase = [
+        {
+            id: '1',
+            name: 'Personajes',
+            uri: './own-characters',
+        }
+    ] as RutasPrincipales[];
+    
+    const {rutas,addAditionalRutas} = useRutas(rutasBase);
 
     const headerStyle = StyleSheet.flatten(options.headerStyle);
 
@@ -11,6 +31,12 @@ export function DefaultHeader ({navigation,route,options,back}:NativeStackHeader
 
     const sourceLogo = options.headerBackIcon ?? require("@/assets/images/BannerPrincipal.png");
 
+    useEffect(() => {
+        if(options.rutasAdicionales != undefined) {
+            addAditionalRutas(options.rutasAdicionales);
+        }
+    },[]);
+    
     return (
         <View style= {{ 
             justifyContent:"center", 
@@ -38,16 +64,19 @@ export function DefaultHeader ({navigation,route,options,back}:NativeStackHeader
                 />
                 </Pressable>
                 <View style= {{ flexDirection: "row", alignItems:"center"}}>
-                    <Text 
-                    style={{fontSize: 25, height: "30%", marginHorizontal: 30}}
-                    onPress={() => {
-                        router.push({
-                            pathname: "/own-characters",
-                        })
-                    }}
-                    >
-                        Personajes   
-                    </Text>
+                    {rutas.map((ruta)=> (
+                        <Text 
+                            key={ruta.id}
+                            style={{fontSize: 25, height: "30%", marginHorizontal: 30}}
+                            onPress={() => {
+                                router.push({
+                                    pathname: ruta.uri,
+                                })
+                            }}
+                        >
+                            {ruta.name}  
+                        </Text>
+                    ))}
                 </View>
             </View>
         </View>

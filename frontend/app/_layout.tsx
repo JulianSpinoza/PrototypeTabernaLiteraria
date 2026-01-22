@@ -1,4 +1,4 @@
-import { DefaultHeader } from "@/components/hearders/DefaultHeader";
+import { CustomOptions, DefaultHeader, DefaultHeaderProps } from "@/components/hearders/DefaultHeader";
 import { Stack } from "expo-router";
 
 export type Character = {
@@ -8,25 +8,33 @@ export type Character = {
 }
 
 export default function RootLayout() {
+  
   return (
     <Stack
       screenOptions={{
-        header: (props) => <DefaultHeader {...props}/>,
+        header: (props) => <DefaultHeader {...(props as DefaultHeaderProps)}/>,
       }}
     >
       {/* Principal */}
       <Stack.Screen
         name="index"
         options={{
-        }}
+          rutasAdicionales: [
+            {
+              id: '2',
+              name: 'Prueba',
+              uri: './own-characters',
+            }
+          ],
+        } as CustomOptions}
       />
 
       {/* Lista de personajes */}
       <Stack.Screen
         name="own-characters"
         options={{
-          
-        }}
+
+        } as CustomOptions }
       />
 
       {/* Detalle del personaje */}
@@ -36,7 +44,7 @@ export default function RootLayout() {
           headerBackTitle: "Volver",
           headerStyle: {backgroundColor:"#2E2EA3"},
           headerBackIcon: require("@/assets/images/BannerMagos.png")
-        }}
+        } as CustomOptions}
       />
     </Stack>
   );
