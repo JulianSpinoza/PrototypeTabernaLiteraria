@@ -20,11 +20,7 @@ export default function RootLayout() {
         name="index"
         options={{
           rutasAdicionales: [
-            {
-              id: '2',
-              name: 'Prueba',
-              uri: './own-characters',
-            }
+            
           ],
         } as CustomOptions}
       />

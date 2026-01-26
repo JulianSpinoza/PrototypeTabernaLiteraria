@@ -27,5 +27,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     color: "#fff",
     minWidth: 120,
+    marginHorizontal: 20,
   },
 });

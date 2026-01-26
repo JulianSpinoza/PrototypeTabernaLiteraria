@@ -31,6 +31,11 @@ export function RangeFilter({ label, min, max, value, onChange }: Props) {
 }
 
 const styles = StyleSheet.create({
-  container: { width: 150 },
-  label: { color: "#cbb", textAlign: "center", marginBottom: 4 },
+  container: { 
+    width: 300,
+    marginHorizontal: 20,
+  },
+  label: {
+    color: "#cbb", textAlign: "center", marginBottom: 4 
+  },
 });

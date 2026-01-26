@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   nameFilter: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 50,
     marginBottom: 24,
   },
   rangeFiltersRow: {
