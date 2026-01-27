@@ -1,5 +1,5 @@
 export type Creature = {
-  id: string;
+  _id: string;
   name: string;
   tier: string;
   habitat: string;

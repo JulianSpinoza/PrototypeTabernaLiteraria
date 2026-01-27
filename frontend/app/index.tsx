@@ -1,7 +1,9 @@
 import { CreatureCard } from "@/components/bestiary/CreatureCard";
 import { RangeFilter } from "@/components/filters/RangeFilter";
 import { TextFilter } from "@/components/filters/TextFilter";
-import { useState } from "react";
+import { getCreatures } from "@/services/api";
+import { Creature } from "@/types/creature";
+import { useEffect, useState } from "react";
 import { View, StyleSheet, Text, useWindowDimensions, FlatList, ScrollView } from "react-native";
 
 export default function CreaturesScreen() {
@@ -120,6 +122,21 @@ export default function CreaturesScreen() {
   const [hp, setHp] = useState(50);
   const [armor, setArmor] = useState(50);
 
+  const [criaturas, setCriaturas] = useState<Creature[]>([]);
+
+  useEffect(() => {
+    fetchCriaturas();
+  },[]);
+
+  async function fetchCriaturas() {
+    try{
+      const disponibles = await getCreatures();
+      setCriaturas(disponibles);
+      console.log(disponibles);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
       <View style={styles.container}>
@@ -159,11 +176,11 @@ export default function CreaturesScreen() {
             <ScrollView>
               <FlatList
                 key={"Bestiario"}
-                data={CREATURES}
+                data={criaturas}
                 horizontal
                 showsHorizontalScrollIndicator={true}
                 contentContainerStyle={styles.cardsContainer}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item._id}
                 renderItem={({ item }) => <CreatureCard creature={item} />}
                 />
             </ScrollView>
