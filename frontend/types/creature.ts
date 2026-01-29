@@ -1,10 +1,15 @@
 export type Creature = {
   _id: string;
   name: string;
-  tier: string;
+  tierName: string;
   habitat: string;
   biome: string;
-  hp: number;
-  armor: number;
-  image: any;
+  stats: {
+    hp: number;
+    armor: number;
+  };
+  image: {
+    url?: string;
+    alt: string;
+  };
 };

@@ -8,7 +8,7 @@ const config = {
     url: process.env.MONGO_URI,
 
     // TODO Change this to your database name:
-    databaseName: process.env.MONGO_URI.split("/").pop(),
+    databaseName: process.env.MONGO_DATABASE_NAME,
 
     options: {
       // useNewUrlParser: true, // (not needed anymore in mongodb driver 4.x+)

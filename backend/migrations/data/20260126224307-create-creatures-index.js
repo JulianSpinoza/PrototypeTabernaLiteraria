@@ -4,10 +4,12 @@
  * @returns {Promise<void>}
  */
 export const up = async (db, client) => {
+    /*
     await db.collection("creatures").createIndex(
-        { nombre: 1 },
+        { name: 1 },
         { unique: false }
     );
+    */
 };
 
 /**
@@ -16,5 +18,7 @@ export const up = async (db, client) => {
  * @returns {Promise<void>}
  */
 export const down = async (db, client) => {
-    await db.collection("creatures").dropIndex("nombre_1")
+    /*
+    await db.collection("creatures").dropIndex("name_1")
+    */
 };

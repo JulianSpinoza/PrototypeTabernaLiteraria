@@ -18,14 +18,6 @@ app.use(
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.json({ message: "Backend running" });
-});
-
-app.get("/ping", (req, res) => {
-  res.json({ message: "Backend conectado 🟢" });
-});
-
 app.use("/creatures", router);
 
 export default app;

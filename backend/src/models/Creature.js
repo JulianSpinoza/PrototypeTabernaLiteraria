@@ -9,9 +9,16 @@ const CreatureSchema = new mongoose.Schema(
     },
 
     tier: {
-      type: String,
-      enum: ["S", "A", "B", "C"],
-      required: true,
+      form: {
+        type: String,
+        enum: ["Pácifico", "Menor", "Alfa", "Pensante"],
+        required: true,
+      },
+      color: {
+        type: String,
+        enum: ["Bronce", "Plata", "Oro", "Platino", "Rubí"],
+        required: true,
+      },
     },
 
     habitat: {
@@ -26,20 +33,24 @@ const CreatureSchema = new mongoose.Schema(
       trim: true,
     },
 
-    hp: {
-      type: Number,
-      required: true,
-      min: 0,
-    },
+    stats: {
+      hp: {
+        type: Number,
+        required: true,
+        min: 0,
+      },
 
-    armor: {
-      type: Number,
-      required: true,
-      min: 0,
+      armor: {
+        type: Number,
+        required: true,
+        min: 0,
+      },
     },
 
     image: {
-      type: String,
+      url: {
+        type: String,
+      },
     },
 
     habilities: {
@@ -49,7 +60,33 @@ const CreatureSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform: function (doc, ret) {
+        ret.image = {
+          ...ret.image,
+          alt: `Carta bestiario: ${ret.name}`,
+        };
+
+        delete ret.tier.color;
+        delete ret.tier.form;
+        delete ret.id;
+
+        delete ret.createdAt;
+        delete ret.updatedAt;
+
+        // While is empty
+        delete ret.habilities;
+
+        return ret;
+      },
+    },
+    toObject: { virtuals: true },
   },
 );
+
+CreatureSchema.virtual('tierName').get(function() {
+  return `${this.tier.color} ${this.tier.form}`;
+});
 
 export default mongoose.model("Creature", CreatureSchema);

@@ -10,7 +10,7 @@ export function CreatureCard({creature}: Props) {
   return (
     <Pressable style={styles.card}>
       <Image 
-        source={ creature.image } 
+        source={{ uri:creature.image.url }} 
         style={styles.image}  />
     </Pressable>
   );
