@@ -77,7 +77,7 @@ export default function CreaturesScreen() {
                 horizontal
                 showsHorizontalScrollIndicator={true}
                 contentContainerStyle={styles.cardsContainer}
-                keyExtractor={(item) => item._id}
+                keyExtractor={(item) => item.id}
                 renderItem={({ item }) => <CreatureCard creature={item} />}
                 />
             </ScrollView>

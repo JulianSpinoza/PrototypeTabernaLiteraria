@@ -1,7 +1,34 @@
 import mongoose from "mongoose";
 
+function generateSlug(name, stats) {
+  let base = name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "");
+
+  const hasStats =
+    stats && (stats.hp !== undefined || stats.armor !== undefined);
+
+  if (!hasStats) {
+    base += "-no-stats";
+  }
+
+  return base;
+}
+
+
 const CreatureSchema = new mongoose.Schema(
   {
+    // Business Identificator
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+
     name: {
       type: String,
       required: true,
@@ -36,13 +63,13 @@ const CreatureSchema = new mongoose.Schema(
     stats: {
       hp: {
         type: Number,
-        required: true,
+        required: false,
         min: 0,
       },
 
       armor: {
         type: Number,
-        required: true,
+        required: false,
         min: 0,
       },
     },
@@ -70,13 +97,17 @@ const CreatureSchema = new mongoose.Schema(
 
         delete ret.tier.color;
         delete ret.tier.form;
-        delete ret.id;
+
+        ret.id = ret.slug;
+        delete ret.slug;
 
         delete ret.createdAt;
         delete ret.updatedAt;
 
         // While is empty
-        delete ret.habilities;
+        if (!ret.habilities?.length) {
+          delete ret.habilities;
+        }
 
         return ret;
       },
@@ -84,6 +115,13 @@ const CreatureSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   },
 );
+
+CreatureSchema.pre("validate", function () {
+  if (!this.slug && this.name) {
+    this.slug = generateSlug(this.name, this.stats);
+  }
+});
+
 
 CreatureSchema.virtual('tierName').get(function() {
   return `${this.tier.color} ${this.tier.form}`;

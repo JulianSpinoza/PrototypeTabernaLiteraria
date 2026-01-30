@@ -1,10 +1,10 @@
 export type Creature = {
-  _id: string;
+  id: string;
   name: string;
   tierName: string;
   habitat: string;
   biome: string;
-  stats: {
+  stats?: {
     hp: number;
     armor: number;
   };
