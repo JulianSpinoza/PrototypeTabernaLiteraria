@@ -32,7 +32,7 @@ export function DefaultHeader ({navigation,route,options,back}:DefaultHeaderProp
     const sourceLogo = options.headerBackIcon ?? require("@/assets/images/BannerPrincipal.png");
 
     useEffect(() => {
-        if(options.rutasAdicionales != undefined) {
+        if(options.rutasAdicionales !== undefined) {
             addAditionalRutas(options.rutasAdicionales);
         }
     },[]);

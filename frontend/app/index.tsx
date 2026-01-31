@@ -1,15 +1,18 @@
 import { CreatureCard } from "@/components/bestiary/CreatureCard";
 import { RangeFilter } from "@/components/filters/RangeFilter";
 import { TextFilter } from "@/components/filters/TextFilter";
-import { getCreatures } from "@/services/api";
+import { CartDimensions } from "@/constants/carts";
+import { useCreatures } from "@/hooks/useCreatures";
+import { getCreatures } from "@/services/api_endpoints";
 import { Creature } from "@/types/creature";
 import { useEffect, useState } from "react";
-import { View, StyleSheet, Text, useWindowDimensions, FlatList, ScrollView } from "react-native";
+import { View, StyleSheet, Text, useWindowDimensions, FlatList, ScrollView, Pressable } from "react-native";
 
 export default function CreaturesScreen() {
 
   const { width } = useWindowDimensions();
-  const numColumns = 4; //width > 1000 ? 4 : width > 700 ? 3 : 2;
+  // Convert this const in a function
+  const numColumns = width > CartDimensions.width*5 ? 5 : width > CartDimensions.width*4 ? 4 : width > CartDimensions.width*3 ? 3 : width > CartDimensions.width*2 ? 2 : 1;
 
   // 🎛 Estado de filtros
   const [tier, setTier] = useState("");
@@ -19,25 +22,28 @@ export default function CreaturesScreen() {
   const [hp, setHp] = useState(50);
   const [armor, setArmor] = useState(50);
 
-  const [criaturas, setCriaturas] = useState<Creature[]>([]);
+  const {
+    loading,
+    error,
+    creatures,
+    fetchCreatures,
+  } = useCreatures<Creature[]>()
 
   useEffect(() => {
-    fetchCriaturas();
+    fetchCreatures({});
   },[]);
 
-  async function fetchCriaturas() {
-    try{
-      const disponibles = await getCreatures();
-      setCriaturas(disponibles);
-      console.log(disponibles);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  const filterCreatures = () => {
+    fetchCreatures({
+      name: name,
+      biome: biome,
+      habitat: habitat,
+    })
+  } 
 
   return (
       <View style={styles.container}>
-          <Text style={styles.title}>Criaturas</Text>
+          <Text style={styles.title}>Criaturas</Text>   
 
             {/* 🔤 Filtros de texto */}
             <View style={styles.textFiltersRow}>
@@ -60,6 +66,8 @@ export default function CreaturesScreen() {
                 onChange={setHp}
               />
 
+               <Pressable style={styles.circle} onPress={filterCreatures}></Pressable>
+
               <RangeFilter
                 label="Puntos de armadura"
                 min={0}
@@ -69,18 +77,40 @@ export default function CreaturesScreen() {
               />
             </View>
 
-            {/* 🃏 Grid de cartas */}
-            <ScrollView>
-              <FlatList
-                key={"Bestiario"}
-                data={criaturas}
-                horizontal
-                showsHorizontalScrollIndicator={true}
-                contentContainerStyle={styles.cardsContainer}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => <CreatureCard creature={item} />}
-                />
-            </ScrollView>
+
+            {/* Loading */}
+            {loading && (
+              <Text>Loading...</Text> 
+            )}
+
+            {/* Error */}
+            {error && (
+              <Text>{error}</Text> 
+            )}
+
+            {/* Empty Space */}
+            {//!loading && !error && creatures. (
+              //<Text>{error}</Text> 
+            //)
+            }
+
+            {/* Carts */}
+            {!loading && !error && (
+              <ScrollView>
+                <FlatList
+                  key={numColumns}
+                  data={creatures}
+                  //horizontal
+                  numColumns={numColumns}
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={styles.cardsContainer}
+                  columnWrapperStyle={numColumns > 1 ? styles.row : undefined}
+                  keyExtractor={(item) => item.id}
+                  renderItem={({ item }) => <CreatureCard creature={item} />}
+                  />
+              </ScrollView>
+              )
+            }
       </View>
         
   );
@@ -115,5 +145,15 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     paddingHorizontal: 20,
+  },
+  row: {
+    justifyContent: "space-around",
+    marginBottom: 16,
+  },
+  circle: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: "#e3a15c",
   },
 });
