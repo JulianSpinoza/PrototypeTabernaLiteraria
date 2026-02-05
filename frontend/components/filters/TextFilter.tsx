@@ -1,13 +1,13 @@
 // components/filters/TextFilter.tsx
 import { TextInput, StyleSheet } from "react-native";
 
-type Props = {
+export interface TextFilterProps {
   value: string;
   placeholder: string;
   onChange: (value: string) => void;
 };
 
-export function TextFilter({ value, placeholder, onChange }: Props) {
+export function TextFilter({ value, placeholder, onChange }: TextFilterProps) {
   return (
     <TextInput
       value={value}
@@ -15,6 +15,7 @@ export function TextFilter({ value, placeholder, onChange }: Props) {
       placeholderTextColor="#bbaaaa"
       onChangeText={onChange}
       style={styles.input}
+      underlineColorAndroid="transparent"
     />
   );
 }
@@ -26,7 +27,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 20,
     color: "#fff",
-    minWidth: 120,
+    minWidth: 150,
     marginHorizontal: 20,
+    outlineWidth: 0,
   },
 });

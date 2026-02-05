@@ -1,5 +1,6 @@
 import { CreatureCard } from "@/components/bestiary/CreatureCard";
 import { RangeFilter } from "@/components/filters/RangeFilter";
+import { SelectionFilter } from "@/components/filters/SelectionFilter";
 import { TextFilter } from "@/components/filters/TextFilter";
 import { CartDimensions } from "@/constants/carts";
 import { useCreatures } from "@/hooks/useCreatures";
@@ -39,7 +40,31 @@ export default function CreaturesScreen() {
       biome: biome,
       habitat: habitat,
     })
-  } 
+  }
+
+  const options = [
+    {
+      name: "Opcion 1",
+      image: require("@/assets/images/Metallurgia_Bioma.png")
+    },
+    {
+      name: "Opcion 2",
+      image: require("@/assets/images/Metallurgia_Bioma.png")
+    },
+    {
+      name: "Opcion 3",
+      image: require("@/assets/images/Metallurgia_Bioma.png")
+    },
+    {
+      name: "Opcion 4"
+    },
+    {
+      name: "Opcion 5"
+    },
+    {
+      name: "Opcion 6"
+    }
+  ];
 
   return (
       <View style={styles.container}>
@@ -47,9 +72,9 @@ export default function CreaturesScreen() {
 
             {/* 🔤 Filtros de texto */}
             <View style={styles.textFiltersRow}>
-              <TextFilter placeholder="Bioma" value={biome} onChange={setBiome} />
-              <TextFilter placeholder="Tier" value={tier} onChange={setTier} />
-              <TextFilter placeholder="Habitat" value={habitat} onChange={setHabitat} />
+              <SelectionFilter placeholder="Bioma" value={biome} onChange={setBiome} listOfOptions={options} />
+              <SelectionFilter placeholder="Tier" value={tier} onChange={setTier} listOfOptions={options} />
+              <SelectionFilter placeholder="Habitat" value={habitat} onChange={setHabitat} listOfOptions={options} />
             </View>
 
             <View style={styles.nameFilter}>
@@ -132,6 +157,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginBottom: 16,
+    zIndex: 1000,
+    elevation: 5,
   },
   nameFilter: {
     paddingHorizontal: 50,
