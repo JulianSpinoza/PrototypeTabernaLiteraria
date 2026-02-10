@@ -18,9 +18,10 @@ export interface SingleSelectionFilterProps {
 interface MultiSelectionFilterProps {
     filters: SingleSelectionFilterProps[];
     listOfResults: MultiItemList[];
+    isFullImages?: boolean;
 }
 
-export function MultiSelectionFilter({filters,listOfResults}:MultiSelectionFilterProps) {
+export function MultiSelectionFilter({filters,listOfResults,isFullImages}:MultiSelectionFilterProps) {
 
     const initializeState = () => {
         const initialState: Record<string,ItemList|undefined> = {};
@@ -57,9 +58,13 @@ export function MultiSelectionFilter({filters,listOfResults}:MultiSelectionFilte
                     }
                 } else if (results.length > 1) {
                     throw Error("Existen duplicados en el Array de MultiItemList ingresados en el listOfResults");
-                } else {
-                    console.log(results);
+                } else if (isFullImages) {
                     throw Error("No existe una posibilidad dentro del listOfResults ingresado, con el filtro presente");
+                } else {
+                    return {
+                        image: undefined,
+                        items: selection,
+                    }
                 }
             } else if (filtersSelected.length === 1) {
                 return {
