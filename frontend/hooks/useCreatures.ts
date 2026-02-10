@@ -17,7 +17,6 @@ export function useCreatures<T>() {
             const searchParams = toStringSearchParams(query);
             const creaturesAvaliable = await getCreatures(searchParams);
             setCreatures(creaturesAvaliable);
-            console.log(creaturesAvaliable);
         } catch (err) {
             handleError(err);
         } finally {

@@ -1,10 +1,9 @@
 import { CreatureCard } from "@/components/bestiary/CreatureCard";
 import { RangeFilter } from "@/components/filters/RangeFilter";
-import { SelectionFilter } from "@/components/filters/SelectionFilter";
+import { SingleSelectionFilter, MultiSelectionFilter } from "@/components/filters/SelectionFilter";
 import { TextFilter } from "@/components/filters/TextFilter";
 import { CartDimensions } from "@/constants/carts";
 import { useCreatures } from "@/hooks/useCreatures";
-import { getCreatures } from "@/services/api_endpoints";
 import { Creature } from "@/types/creature";
 import { useEffect, useState } from "react";
 import { View, StyleSheet, Text, useWindowDimensions, FlatList, ScrollView, Pressable } from "react-native";
@@ -16,7 +15,8 @@ export default function CreaturesScreen() {
   const numColumns = width > CartDimensions.width*5 ? 5 : width > CartDimensions.width*4 ? 4 : width > CartDimensions.width*3 ? 3 : width > CartDimensions.width*2 ? 2 : 1;
 
   // 🎛 Estado de filtros
-  const [tier, setTier] = useState("");
+  const [tierForm, setTierForm] = useState("");
+  const [tierColor, setTierColor] = useState("");
   const [habitat, setHabitat] = useState("");
   const [biome, setBiome] = useState("");
   const [name, setName] = useState("");
@@ -66,15 +66,80 @@ export default function CreaturesScreen() {
     }
   ];
 
+  const results = [
+    {
+      image:require("@/assets/images/Lucca_rol.jpeg"),
+      items: {
+        "Filter Tier Forma":{
+          name: "Opcion 1",
+          image: require("@/assets/images/Metallurgia_Bioma.png")
+        },
+        "Filter Tier Color":{
+          name: "Opcion 2",
+          image: require("@/assets/images/Metallurgia_Bioma.png")
+        },
+      }
+    },
+    {
+      image:require("@/assets/images/Lucrezia.jpg"),
+      items: {
+        "Filter Tier Forma":{
+          name: "Opcion 5",
+        },
+        "Filter Tier Color":{
+          name: "Opcion 6",
+        },
+      }
+    }
+  ];
+
   return (
       <View style={styles.container}>
           <Text style={styles.title}>Criaturas</Text>   
 
             {/* 🔤 Filtros de texto */}
             <View style={styles.textFiltersRow}>
-              <SelectionFilter placeholder="Bioma" value={biome} onChange={setBiome} listOfOptions={options} />
-              <SelectionFilter placeholder="Tier" value={tier} onChange={setTier} listOfOptions={options} />
-              <SelectionFilter placeholder="Habitat" value={habitat} onChange={setHabitat} listOfOptions={options} />
+              <SingleSelectionFilter 
+                llave="Filter Bioma"
+                textInput={{
+                  placeholder:"Bioma",
+                  value:biome,
+                  onChange:setBiome,
+                }}
+                listOfOptions={options} 
+              />
+              <MultiSelectionFilter 
+                filters={[
+                  {
+                    llave:"Filter Tier Forma",
+                    textInput: {
+                      placeholder:"Tier Forma",
+                      value:tierForm,
+                      onChange:setTierForm,
+                    },
+                    listOfOptions: options,
+                  },
+                  {
+                    llave:"Filter Tier Color",
+                    textInput: {
+                      placeholder:"Tier Color",
+                      value:tierColor,
+                      onChange:setTierColor,
+                    },
+                    listOfOptions: options
+                  }
+                ]}
+                listOfResults={results}
+              />
+              <SingleSelectionFilter 
+                llave="Filter Habitat"
+                textInput={{
+                  placeholder:"Habitat" ,
+                  value:habitat ,
+                  onChange:setHabitat,
+                }}
+                listOfOptions={options} 
+              />
             </View>
 
             <View style={styles.nameFilter}>
