@@ -7,8 +7,7 @@ import { toStringSearchParams } from "@/services/api_translation";
 export function useCreatures<T>() {
 
     const [creatures, setCreatures] = useState<T|null>(null);
-    const { loading, error, approvedOperation, startLoading, handleError } =
-      useAPIState();
+    const { loading, error, approvedOperation, startLoading, handleError } = useAPIState();
 
     async function fetchCreatures(query:CreatureWideFilter) {
 
@@ -39,11 +38,11 @@ export function useCreatures<T>() {
     }
 
     return {
-        loading,
-        error,
-        creatures,
-        fetchCreatures,
-        fetchOneCreature
+      creature_loading: loading,
+      creature_error: error,
+      creatures,
+      fetchCreatures,
+      fetchOneCreature,
     };
 
 }

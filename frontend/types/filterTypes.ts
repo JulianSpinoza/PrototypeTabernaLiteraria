@@ -1,9 +1,10 @@
 export type ItemList = {
+    slug: string;
     name: string;
     image?: any;
 }
 
 export type MultiItemList = {
-    items: Record<string, ItemList|undefined>;
+    items: Record<string, string>;
     image?: any;
 };

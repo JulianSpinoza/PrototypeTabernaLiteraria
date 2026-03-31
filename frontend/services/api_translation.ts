@@ -1,17 +1,17 @@
-/**
- * Recursive function to translate an Object to append it to URLSearchParams
- * @param query Query filter object to translate
- * @param prefix Prefix for nested keys (optional)
- * @returns String of query params
- */
-export const toStringSearchParams = (query: any, prefix: string = "") => {
-  const params = new URLSearchParams();
-
+export const toStringSearchParams = (
+  query: any,
+  prefix: string = "",
+  params = new URLSearchParams(),
+) => {
   Object.entries(query).forEach(([key, value]) => {
-    if (value && typeof value === "object") {
-      toStringSearchParams(value, prefix ? `${prefix}[${key}]` : key);
+    // Generamos la llave con el formato: llave o prefijo[llave]
+    const paramKey = prefix ? `${prefix}[${key}]` : key;
+
+    if (value !== null && typeof value === "object" && !Array.isArray(value)) {
+      // IMPORTANTE: Pasamos el mismo objeto 'params' para que todos escriban en él
+      toStringSearchParams(value, paramKey, params);
     } else if (value !== undefined && value !== "") {
-      const paramKey = prefix ? `${prefix}[${key}]` : key;
+      // Si es un valor simple o un array, lo agregamos
       params.append(paramKey, String(value));
     }
   });

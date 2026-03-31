@@ -3,8 +3,10 @@ import { RangeFilter } from "@/components/filters/RangeFilter";
 import { SingleSelectionFilter, MultiSelectionFilter } from "@/components/filters/SelectionFilter";
 import { TextFilter } from "@/components/filters/TextFilter";
 import { CartDimensions } from "@/constants/carts";
+import { useClassifiers } from "@/hooks/useClassifiers";
 import { useCreatures } from "@/hooks/useCreatures";
 import { Creature } from "@/types/creature";
+import { ItemList, MultiItemList } from "@/types/filterTypes";
 import { useEffect, useState } from "react";
 import { View, StyleSheet, Text, useWindowDimensions, FlatList, ScrollView, Pressable } from "react-native";
 
@@ -24,14 +26,38 @@ export default function CreaturesScreen() {
   const [armor, setArmor] = useState(50);
 
   const {
-    loading,
-    error,
+    creature_loading,
+    creature_error,
     creatures,
     fetchCreatures,
   } = useCreatures<Creature[]>()
 
+  const {
+    classifier_loading: creature_color_loading,
+    classifier_error: creature_color_error,
+    classifiers: creature_colors,
+    fetchClassifier: fetchCreatureColors,
+  } = useClassifiers<ItemList[]>([]);
+
+  const {
+    classifier_loading: creature_form_loading,
+    classifier_error: creature_form_error,
+    classifiers: creature_forms,
+    fetchClassifier: fetchCreatureForms,
+  } = useClassifiers<ItemList[]>([]);
+
+  const {
+    classifier_loading: creature_tier_loading,
+    classifier_error: creature_tier_error,
+    classifiers: creature_tiers,
+    fetchClassifier: fetchCreatureTiers,
+  } = useClassifiers<MultiItemList[]>([]);
+
   useEffect(() => {
     fetchCreatures({});
+    fetchCreatureColors("creature_color");
+    fetchCreatureForms("creature_form");
+    fetchCreatureTiers("creature_tier");
   },[]);
 
   const filterCreatures = () => {
@@ -39,29 +65,39 @@ export default function CreaturesScreen() {
       name: name,
       biome: biome,
       habitat: habitat,
+      tier: {
+        form: tierForm,
+        color: tierColor,
+      },
     })
   }
 
   const options = [
     {
+      slug: "a",
       name: "Opcion 1",
       image: require("@/assets/images/Metallurgia_Bioma.png")
     },
     {
+      slug: "a",
       name: "Opcion 2",
       image: require("@/assets/images/Metallurgia_Bioma.png")
     },
     {
+      slug: "a",
       name: "Opcion 3",
       image: require("@/assets/images/Metallurgia_Bioma.png")
     },
     {
+      slug: "a",
       name: "Opcion 4"
     },
     {
+      slug: "a",
       name: "Opcion 5"
     },
     {
+      slug: "a",
       name: "Opcion 6"
     }
   ];
@@ -99,6 +135,7 @@ export default function CreaturesScreen() {
 
             {/* 🔤 Filtros de texto */}
             <View style={styles.textFiltersRow}>
+
               <SingleSelectionFilter 
                 llave="Filter Bioma"
                 textInput={{
@@ -111,25 +148,25 @@ export default function CreaturesScreen() {
               <MultiSelectionFilter 
                 filters={[
                   {
-                    llave:"Filter Tier Forma",
+                    llave:"creature_form",
                     textInput: {
                       placeholder:"Tier Forma",
                       value:tierForm,
                       onChange:setTierForm,
                     },
-                    listOfOptions: options,
+                    listOfOptions: creature_forms,
                   },
                   {
-                    llave:"Filter Tier Color",
+                    llave:"creature_color",
                     textInput: {
                       placeholder:"Tier Color",
                       value:tierColor,
                       onChange:setTierColor,
                     },
-                    listOfOptions: options
+                    listOfOptions: creature_colors
                   }
                 ]}
-                listOfResults={results}
+                listOfResults={creature_tiers}
               />
               <SingleSelectionFilter 
                 llave="Filter Habitat"
@@ -168,24 +205,24 @@ export default function CreaturesScreen() {
             </View>
 
 
-            {/* Loading */}
-            {loading && (
-              <Text>Loading...</Text> 
+            {/* creature_loading */}
+            {creature_loading && (
+              <Text>creature_loading...</Text> 
             )}
 
-            {/* Error */}
-            {error && (
-              <Text>{error}</Text> 
+            {/* creature_error */}
+            {creature_error && (
+              <Text>{creature_error}</Text> 
             )}
 
             {/* Empty Space */}
-            {//!loading && !error && creatures. (
-              //<Text>{error}</Text> 
+            {//!creature_loading && !creature_error && creatures. (
+              //<Text>{creature_error}</Text> 
             //)
             }
 
             {/* Carts */}
-            {!loading && !error && (
+            {!creature_loading && !creature_error && (
               <ScrollView>
                 <FlatList
                   key={numColumns}

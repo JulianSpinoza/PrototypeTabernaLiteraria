@@ -1,10 +1,12 @@
 import express from "express";
 
 import { getCreatureById, getCreatures } from "../controllers/creatures.controller.js";
+import { getClassifiers } from "../controllers/classifiers.controller.js";
 
-const router = express.Router();
+const creatures_router = express.Router();
 
-router.get("/", getCreatures);
-router.get("/:id", getCreatureById);
+creatures_router.get("/", getCreatures);
+creatures_router.get("/:id", getCreatureById);
+creatures_router.get("/classifiers/:category_slug", getClassifiers);
 
-export default router;
+export default creatures_router;

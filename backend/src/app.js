@@ -3,7 +3,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 
-import router from "./routes/creatures.routes.js";
+import creatures_router from "./routes/creatures.routes.js";
 
 const app = express();
 
@@ -17,7 +17,8 @@ app.use(
 );
 
 app.use(express.json());
+app.set("query parser", "extended");
 
-app.use("/creatures", router);
+app.use("/creatures", creatures_router);
 
 export default app;

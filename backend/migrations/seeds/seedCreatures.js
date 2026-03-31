@@ -845,10 +845,10 @@ async function seed() {
 
 seed()
   .then(() => {
-    console.log("🌱 Seed finalizado correctamente");
+    console.log("🌱 Seed de criaturas finalizado correctamente");
     process.exit(0);
   })
   .catch((err) => {
-    console.error("❌ Error en seed", err);
+    console.error("❌ Error en seed de criaturas", err);
     process.exit(1);
   });

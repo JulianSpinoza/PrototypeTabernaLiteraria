@@ -18,16 +18,12 @@ export interface SingleSelectionFilterProps {
 interface MultiSelectionFilterProps {
     filters: SingleSelectionFilterProps[];
     listOfResults: MultiItemList[];
-    isFullImages?: boolean;
 }
 
-export function MultiSelectionFilter({filters,listOfResults,isFullImages}:MultiSelectionFilterProps) {
+export function MultiSelectionFilter({filters,listOfResults}:MultiSelectionFilterProps) {
 
     const initializeState = () => {
-        const initialState: Record<string,ItemList|undefined> = {};
-        filters.map((filter)=>{
-            initialState[filter.llave] = undefined;
-        });
+        const initialState: Record<string,string> = {};
         return {
             image: undefined,
             items: initialState,
@@ -42,24 +38,20 @@ export function MultiSelectionFilter({filters,listOfResults,isFullImages}:MultiS
 
             const selection = {
                 ...prev.items,
-                [key]: item,
-            } as Record<string, ItemList|undefined>;
+                [key]: item?.slug,
+            } as Record<string, string>;
 
             const filtersSelected = Object.values(selection).filter(
                 item => item !== undefined
             ); 
 
             if(filtersSelected.length > 1){
-                const results = listOfResults.filter(result => equalsObject(result.items,selection));
-                if(results.length === 1){
+                const results = listOfResults.find(result => equalsObject(result.items,selection));
+                if(results){
                     return {
-                        image: results[0].image,
+                        image: results.image,
                         items: selection,
                     }
-                } else if (results.length > 1) {
-                    throw Error("Existen duplicados en el Array de MultiItemList ingresados en el listOfResults");
-                } else if (isFullImages) {
-                    throw Error("No existe una posibilidad dentro del listOfResults ingresado, con el filtro presente");
                 } else {
                     return {
                         image: undefined,
@@ -68,7 +60,7 @@ export function MultiSelectionFilter({filters,listOfResults,isFullImages}:MultiS
                 }
             } else if (filtersSelected.length === 1) {
                 return {
-                    image: filtersSelected[0].image,
+                    image: item?.image,
                     items: selection,
                 };
             } else {
@@ -85,8 +77,7 @@ export function MultiSelectionFilter({filters,listOfResults,isFullImages}:MultiS
             <View style={styles.textFilterContainer}>
                 {finalSelection && (
                     <Image
-                        //source= {{uri:selected.image}}
-                        source = {finalSelection.image}
+                        source = {finalSelection.image?.url}
                         style = {styles.image}
                         resizeMode="contain"
                     />
@@ -121,8 +112,7 @@ export function SingleSelectionFilter({llave, textInput, listOfOptions}:SingleSe
             <View style={styles.textFilterContainer}>
                 {finalSelection && (
                     <Image
-                        //source= {{uri:selected.image}}
-                        source = {finalSelection.image}
+                        source = {finalSelection.image.url}
                         style = {styles.image}
                         resizeMode="contain"
                     />
@@ -196,12 +186,12 @@ function ItemCard({item, onPress}:ItemCardProps) {
         <Pressable style= {styles.itemCard} onPress={onPress}>
             {item.image && (
                 <Image
-                    source = {item.image}
+                    source = {item.image.url}
                     style = {styles.image}
                     resizeMode="contain"
                 />
             )}
-            <Text style= {styles.input}>{item.name}</Text>
+            <Text style= {styles.option}>{item.name}</Text>
         </Pressable>
     );
 }
@@ -233,6 +223,7 @@ function equalsObject(a: any, b: any): boolean {
 const styles = StyleSheet.create({
     fullContainer:{
         position:"relative",
+        marginHorizontal:20,
     },
     textFilterContainer:{
         flexDirection: "row",
@@ -258,7 +249,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems:"center"
     },
-    input: {
+    option: {
         color: "#fff",
         marginHorizontal: "10%",
     },

@@ -1,8 +1,8 @@
-import Creature from "../models/Creature.js";
+import { Creature } from "../models/Creature.js";
 
 export const getCreatures = async (req, res) => {
   try {
-    const { name, tierForm, tierColor, biome, habitat, hpMin, hpMax } = req.query;
+    const { name, tier, biome, habitat, hpMin, hpMax } = req.query;
 
     const filter = {};
 
@@ -12,12 +12,12 @@ export const getCreatures = async (req, res) => {
     }
 
     // Filtros anidados para Tier
-    if (tierForm) {
-      filter["tier.form"] = tierForm;
+    if (tier?.form) {
+      filter["tier.form"] = tier.form;
     }
     
-    if (tierColor) {
-      filter["tier.color"] = tierColor;
+    if (tier?.color) {
+      filter["tier.color"] = tier.color;
     }
 
     // Filtros directos
@@ -35,7 +35,7 @@ export const getCreatures = async (req, res) => {
 
     res.json(creatures);
   } catch (error) {
-    console.error(error); // Útil para debuguear en desarrollo
+    console.error(error);
     res.status(500).json({ message: "Error al obtener criaturas" });
   }
 };

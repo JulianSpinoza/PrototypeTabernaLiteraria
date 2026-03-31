@@ -9,3 +9,10 @@ export async function getOneCreature() {
   const response = await fetch(`${API_URL}/creatures/:id`);
   return response.json();
 }
+
+export async function getClassifiers(category_slug:string) {
+  const response = await fetch(
+    `${API_URL}/creatures/classifiers/${category_slug}`,
+  );
+  return response.json();
+}

@@ -18,7 +18,6 @@ function generateSlug(name, stats) {
   return base;
 }
 
-
 const CreatureSchema = new mongoose.Schema(
   {
     // Business Identificator
@@ -36,42 +35,54 @@ const CreatureSchema = new mongoose.Schema(
     },
 
     tier: {
-      form: {
-        type: String,
-        enum: ["Pácifico", "Menor", "Alfa", "Pensante"],
-        required: true,
+      type: {
+        form: {
+          type: String,
+          enum: {
+            values: ["Pácifico", "Menor", "Alfa", "Pensante"],
+            message: "{VALUE} no es un categoria de tier forma.",
+          },
+          required: true,
+        },
+        color: {
+          type: String,
+          enum: {
+            values: ["Bronce", "Plata", "Oro", "Platino", "Rubí"],
+            message: "{VALUE} no es un categoria de tier color.",
+          },
+          required: true,
+        },
       },
-      color: {
-        type: String,
-        enum: ["Bronce", "Plata", "Oro", "Platino", "Rubí"],
-        required: true,
-      },
+      required: [true, "Las criaturas deben asociar a un tier."],
     },
 
     habitat: {
       type: String,
-      required: true,
+      required: [true, "Las criaturas deben pertenecer a un habitat."],
       trim: true,
     },
 
     biome: {
       type: String,
-      required: true,
+      required: [true, "Las criaturas deben pertenecer a un bioma."],
       trim: true,
     },
 
     stats: {
-      hp: {
-        type: Number,
-        required: false,
-        min: 0,
-      },
+      type: {
+        hp: {
+          type: Number,
+          required: false,
+          min: [1, "No puede haber una criatura con vida negativa o nula."],
+        },
 
-      armor: {
-        type: Number,
-        required: false,
-        min: 0,
+        armor: {
+          type: Number,
+          required: false,
+          min: [1, "No puede haber una criatura con armadura negativa o nula."],
+        },
       },
+      required: false,
     },
 
     image: {
@@ -122,9 +133,9 @@ CreatureSchema.pre("validate", function () {
   }
 });
 
-
+// Revisar este Virtual con la logica planteada en el modelo de Classifier
 CreatureSchema.virtual('tierName').get(function() {
   return `${this.tier.color} ${this.tier.form}`;
 });
 
-export default mongoose.model("Creature", CreatureSchema);
+export const Creature = mongoose.model("Creature", CreatureSchema);

@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     color: "#fff",
     minWidth: 150,
-    marginHorizontal: 20,
+    marginHorizontal: 5,
     outlineWidth: 0,
   },
 });
