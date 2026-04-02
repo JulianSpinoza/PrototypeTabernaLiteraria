@@ -1,20 +1,17 @@
 import mongoose from "mongoose";
 
-function generateSlug(name, stats) {
+function generateSlug(name) {
+
+  // Revisar con carto que es muy variable para la criatura (tanto para crear otra carta)
+  // (Posiblemente juntar con Habitat, pues es muy variable)
+  
   let base = name
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)+/g, "");
-
-  const hasStats =
-    stats && (stats.hp !== undefined || stats.armor !== undefined);
-
-  if (!hasStats) {
-    base += "-no-stats";
-  }
-
+  
   return base;
 }
 
@@ -34,20 +31,31 @@ const CreatureSchema = new mongoose.Schema(
       trim: true,
     },
 
-    tier: {
+    creature_tier: {
       type: {
-        form: {
+        creature_form: {
           type: String,
           enum: {
-            values: ["Pácifico", "Menor", "Alfa", "Pensante"],
+            values: [
+              "creature_pacific",
+              "creature_minor",
+              "creature_alpha",
+              "creature_thinker",
+            ],
             message: "{VALUE} no es un categoria de tier forma.",
           },
           required: true,
         },
-        color: {
+        creature_color: {
           type: String,
           enum: {
-            values: ["Bronce", "Plata", "Oro", "Platino", "Rubí"],
+            values: [
+              "creature_bronce",
+              "creature_silver",
+              "creature_gold",
+              "creature_platinum",
+              "creature_rubi",
+            ],
             message: "{VALUE} no es un categoria de tier color.",
           },
           required: true,
@@ -74,12 +82,22 @@ const CreatureSchema = new mongoose.Schema(
           type: Number,
           required: false,
           min: [1, "No puede haber una criatura con vida negativa o nula."],
+          validate: {
+            validator: Number.isInteger,
+            message:
+              "Error en el campo {PATH}: {VALUE} no es un número entero.",
+          },
         },
 
         armor: {
           type: Number,
           required: false,
           min: [1, "No puede haber una criatura con armadura negativa o nula."],
+          validate: {
+            validator: Number.isInteger,
+            message:
+              "Error en el campo {PATH}: {VALUE} no es un número entero.",
+          },
         },
       },
       required: false,
@@ -91,23 +109,96 @@ const CreatureSchema = new mongoose.Schema(
       },
     },
 
+    existence: {
+      type: {
+        is_unique: {
+          type: Boolean,
+        },
+        state: {
+          type: String,
+          enum: {
+            // Tener en cuenta que "Extinta" solo vale si no es única
+            // (Posible crear un clasificador)
+            values: ["Con vida", "Fallecida", "Desaparecida", "Extinta"],
+            message: "{VALUE} no es un estado de existencia de la criatura.",
+          },
+          default: "Con vida",
+        },
+      },
+      required: true,
+    },
+
+    description: {
+      type: String,
+    },
+
     habilities: {
       type: Array,
       default: [],
+    },
+
+    attributes: {
+      type: {
+        strength: {
+          type: Number,
+          validate: {
+            validator: Number.isInteger,
+            message:
+              "Error en el campo {PATH}: {VALUE} no es un número entero.",
+          },
+        },
+        dexterity: {
+          type: Number,
+          validate: {
+            validator: Number.isInteger,
+            message:
+              "Error en el campo {PATH}: {VALUE} no es un número entero.",
+          },
+        },
+        constitution: {
+          type: Number,
+          validate: {
+            validator: Number.isInteger,
+            message:
+              "Error en el campo {PATH}: {VALUE} no es un número entero.",
+          },
+        },
+        intelligence: {
+          type: Number,
+          validate: {
+            validator: Number.isInteger,
+            message:
+              "Error en el campo {PATH}: {VALUE} no es un número entero.",
+          },
+        },
+        wisdom: {
+          type: Number,
+          validate: {
+            validator: Number.isInteger,
+            message:
+              "Error en el campo {PATH}: {VALUE} no es un número entero.",
+          },
+        },
+        charisma: {
+          type: Number,
+          validate: {
+            validator: Number.isInteger,
+            message:
+              "Error en el campo {PATH}: {VALUE} no es un número entero.",
+          },
+        },
+      },
+      required: true,
     },
   },
   {
     timestamps: true,
     toJSON: {
-      virtuals: true,
       transform: function (doc, ret) {
         ret.image = {
           ...ret.image,
           alt: `Carta bestiario: ${ret.name}`,
         };
-
-        delete ret.tier.color;
-        delete ret.tier.form;
 
         ret.id = ret.slug;
         delete ret.slug;
@@ -123,19 +214,14 @@ const CreatureSchema = new mongoose.Schema(
         return ret;
       },
     },
-    toObject: { virtuals: true },
   },
 );
 
 CreatureSchema.pre("validate", function () {
   if (!this.slug && this.name) {
-    this.slug = generateSlug(this.name, this.stats);
+    this.slug = generateSlug(this.name);
   }
 });
 
-// Revisar este Virtual con la logica planteada en el modelo de Classifier
-CreatureSchema.virtual('tierName').get(function() {
-  return `${this.tier.color} ${this.tier.form}`;
-});
 
 export const Creature = mongoose.model("Creature", CreatureSchema);
