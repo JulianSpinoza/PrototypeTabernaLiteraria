@@ -5,12 +5,12 @@ import Creature from "../../src/models/Creature.js";
 const creatures = [
   {
     name: "Comandante Volk",
-    tier: {
-      form: "Pensante",
-      color: "Platino",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_platinum",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: 105,
       armor: 19,
@@ -23,12 +23,12 @@ const creatures = [
 
   {
     name: "Abyssurionyx",
-    tier: {
-      form: "Alfa",
-      color: "Rubí",
+    creature_tier: {
+      creature_form: "creature_alpha",
+      creature_color: "creature_rubi",
     },
     habitat: "Romadhus",
-    biome: "Tinieblas",
+    biome: "biome_darkness",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -41,12 +41,12 @@ const creatures = [
 
   {
     name: "Exterminador DH1",
-    tier: {
-      form: "Alfa",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_alpha",
+      creature_color: "creature_gold",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: 54,
       armor: 17,
@@ -59,12 +59,12 @@ const creatures = [
 
   {
     name: "Avalá Rhoeas",
-    tier: {
-      form: "Pensante",
-      color: "Platino",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_platinum",
     },
     habitat: "Orden Draconiana",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -77,12 +77,12 @@ const creatures = [
 
   {
     name: "Adoness",
-    tier: {
-      form: "Pensante",
-      color: "Rubí",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_rubi",
     },
     habitat: "Elaör'Man",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -95,12 +95,12 @@ const creatures = [
 
   {
     name: "Xan Ka'Diar",
-    tier: {
-      form: "Pensante",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_gold",
     },
     habitat: "Reino Espiritual",
-    biome: "Espiritual",
+    biome: "biome_spiritual_realm",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -113,12 +113,12 @@ const creatures = [
 
   {
     name: "Z3-NITH",
-    tier: {
-      form: "Pensante",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_gold",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: 55,
       armor: 12,
@@ -131,12 +131,12 @@ const creatures = [
 
   {
     name: "Ze'iNaga",
-    tier: {
-      form: "Pensante",
-      color: "Plata",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_silver",
     },
     habitat: "Templos Ze'iNaga",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -149,12 +149,12 @@ const creatures = [
 
   {
     name: "S1RI",
-    tier: {
-      form: "Pensante",
-      color: "Plata",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_silver",
     },
     habitat: "Vitrum Civitas",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -167,12 +167,12 @@ const creatures = [
 
   {
     name: "Comandante Groom-FORG3",
-    tier: {
-      form: "Pensante",
-      color: "Platino",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_platinum",
     },
     habitat: "Groom",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: 95,
       armor: 17,
@@ -185,12 +185,12 @@ const creatures = [
 
   {
     name: "Forjado Hambriento",
-    tier: {
-      form: "Pensante",
-      color: "Plata",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_silver",
     },
     habitat: "Innsmouth",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: 16,
       armor: 12,
@@ -203,12 +203,12 @@ const creatures = [
 
   {
     name: "D.M.Y.",
-    tier: {
-      form: "Pácifico",
-      color: "Plata",
+    creature_tier: {
+      creature_form: "creature_pacific",
+      creature_color: "creature_silver",
     },
     habitat: "Vitrum Civitas",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: 40,
       armor: 10,
@@ -221,12 +221,12 @@ const creatures = [
 
   {
     name: "Demoledor R-TT",
-    tier: {
-      form: "Alfa",
-      color: "Platino",
+    creature_tier: {
+      creature_form: "creature_alpha",
+      creature_color: "creature_platinum",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -239,12 +239,12 @@ const creatures = [
 
   {
     name: "P3SOK Tracker",
-    tier: {
-      form: "Pensante",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_gold",
     },
     habitat: "Signa Solis",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: 44,
       armor: 14,
@@ -257,12 +257,12 @@ const creatures = [
 
   {
     name: "Comandante Solaris",
-    tier: {
-      form: "Pensante",
-      color: "Platino",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_platinum",
     },
     habitat: "Signa Solis",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -275,12 +275,12 @@ const creatures = [
 
   {
     name: "Snowflake",
-    tier: {
-      form: "Pensante",
-      color: "Platino",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_platinum",
     },
     habitat: "Zauberwald",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: 38,
       armor: 15,
@@ -293,12 +293,12 @@ const creatures = [
 
   {
     name: "Ghork",
-    tier: {
-      form: "Pensante",
-      color: "Platino",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_platinum",
     },
     habitat: "Zauberwald",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -311,12 +311,12 @@ const creatures = [
 
   {
     name: "Caza Imperial",
-    tier: {
-      form: "Alfa",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_alpha",
+      creature_color: "creature_gold",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: 70,
       armor: 14,
@@ -329,12 +329,12 @@ const creatures = [
 
   {
     name: "Cedric Helium",
-    tier: {
-      form: "Pensante",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_gold",
     },
     habitat: "Vanslange",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -347,12 +347,12 @@ const creatures = [
 
   {
     name: "Maskro",
-    tier: {
-      form: "Pácifico",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_pacific",
+      creature_color: "creature_gold",
     },
     habitat: "Praderas",
-    biome: "Campo de flores",
+    biome: "biome_field_of_flowers",
     stats: {
       hp: 28,
       armor: 13,
@@ -365,12 +365,12 @@ const creatures = [
 
   {
     name: "Comandante Metárdida",
-    tier: {
-      form: "Pensante",
-      color: "Platino",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_platinum",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -383,12 +383,12 @@ const creatures = [
 
   {
     name: "Protector Imperial S7",
-    tier: {
-      form: "Alfa",
-      color: "Platino",
+    creature_tier: {
+      creature_form: "creature_alpha",
+      creature_color: "creature_platinum",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -401,12 +401,12 @@ const creatures = [
 
   {
     name: "Luceron Kaeldros",
-    tier: {
-      form: "Pensante",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_gold",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -419,12 +419,12 @@ const creatures = [
 
   {
     name: "Comandante Geisteskrank",
-    tier: {
-      form: "Pensante",
-      color: "Platino",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_platinum",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -437,12 +437,12 @@ const creatures = [
 
   {
     name: "Oraken",
-    tier: {
-      form: "Menor",
-      color: "Bronce",
+    creature_tier: {
+      creature_form: "creature_minor",
+      creature_color: "creature_bronce",
     },
     habitat: "Cielos",
-    biome: "Cielo",
+    biome: "biome_sky",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -455,12 +455,12 @@ const creatures = [
 
   {
     name: "Kayn Zigurd",
-    tier: {
-      form: "Pensante",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_gold",
     },
     habitat: "Nibelungo",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -473,12 +473,12 @@ const creatures = [
 
   {
     name: "Mitay Rhül",
-    tier: {
-      form: "Pensante",
-      color: "Platino",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_platinum",
     },
     habitat: "Magis Quam Cetera",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -491,12 +491,12 @@ const creatures = [
 
   {
     name: "Anomalía de Andvaranaut",
-    tier: {
-      form: "Alfa",
-      color: "Rubí",
+    creature_tier: {
+      creature_form: "creature_alpha",
+      creature_color: "creature_rubi",
     },
     habitat: "Nibelungo",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -509,12 +509,12 @@ const creatures = [
 
   {
     name: "Surcanubes",
-    tier: {
-      form: "Pácifico",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_pacific",
+      creature_color: "creature_gold",
     },
     habitat: "Cielos Nubosos",
-    biome: "Cielo",
+    biome: "biome_sky",
     stats: {
       hp: 40,
       armor: 13,
@@ -527,12 +527,12 @@ const creatures = [
 
   {
     name: "Gatlin",
-    tier: {
-      form: "Pensante",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_gold",
     },
     habitat: "Gremio de Aventureros",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: 28,
       armor: 12,
@@ -545,12 +545,12 @@ const creatures = [
 
   {
     name: "Comando XTR-T",
-    tier: {
-      form: "Alfa",
-      color: "Platino",
+    creature_tier: {
+      creature_form: "creature_alpha",
+      creature_color: "creature_platinum",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: 64,
       armor: 16,
@@ -563,12 +563,12 @@ const creatures = [
 
   {
     name: "Explorador C-TT",
-    tier: {
-      form: "Alfa",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_alpha",
+      creature_color: "creature_gold",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: 65,
       armor: 15,
@@ -581,12 +581,12 @@ const creatures = [
 
   {
     name: "Morwën Amberblaze",
-    tier: {
-      form: "Pensante",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_gold",
     },
     habitat: "Vanslange",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -599,12 +599,12 @@ const creatures = [
 
   {
     name: "Awog",
-    tier: {
-      form: "Pensante",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_minor",
+      creature_color: "creature_gold",
     },
     habitat: "Ríos y Lagos",
-    biome: "Agua",
+    biome: "biome_water",
     stats: {
       hp: 15,
       armor: 13,
@@ -617,12 +617,12 @@ const creatures = [
 
   {
     name: "Ailupin",
-    tier: {
-      form: "Pácifico",
-      color: "Plata",
+    creature_tier: {
+      creature_form: "creature_pacific",
+      creature_color: "creature_silver",
     },
     habitat: "Bosques y Praderas",
-    biome: "Reino Fae",
+    biome: "biome_fae_kingdom",
     stats: {
       hp: 7,
       armor: 9,
@@ -635,12 +635,12 @@ const creatures = [
 
   {
     name: "Alquimiau",
-    tier: {
-      form: "Menor",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_minor",
+      creature_color: "creature_gold",
     },
     habitat: "Vanslange",
-    biome: "Ciudad",
+    biome: "biome_city",
     stats: {
       hp: 8,
       armor: 14,
@@ -653,12 +653,12 @@ const creatures = [
 
   {
     name: "Fánatec Flos",
-    tier: {
-      form: "Pácifico",
-      color: "Plata",
+    creature_tier: {
+      creature_form: "creature_pacific",
+      creature_color: "creature_silver",
     },
     habitat: "Bosque Paldäin",
-    biome: "Bosque",
+    biome: "biome_forest",
     stats: {
       hp: 14,
       armor: 13,
@@ -671,12 +671,12 @@ const creatures = [
 
   {
     name: "Fánatec",
-    tier: {
-      form: "Pácifico",
-      color: "Plata",
+    creature_tier: {
+      creature_form: "creature_pacific",
+      creature_color: "creature_silver",
     },
     habitat: "Bosque Paldäin",
-    biome: "Bosque",
+    biome: "biome_forest",
     stats: {
       hp: 12,
       armor: 12,
@@ -689,12 +689,12 @@ const creatures = [
 
   {
     name: "Kimi Flōs",
-    tier: {
-      form: "Pácifico",
-      color: "Bronce",
+    creature_tier: {
+      creature_form: "creature_pacific",
+      creature_color: "creature_bronce",
     },
     habitat: "Bosque Paldäin",
-    biome: "Bosque",
+    biome: "biome_forest",
     stats: {
       hp: 5,
       armor: 8,
@@ -707,12 +707,12 @@ const creatures = [
 
   {
     name: "Aullido X-V5",
-    tier: {
-      form: "Menor",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_minor",
+      creature_color: "creature_gold",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: 36,
       armor: 16,
@@ -725,12 +725,12 @@ const creatures = [
 
   {
     name: "Droide Centinela Z3",
-    tier: {
-      form: "Pácifico",
-      color: "Plata",
+    creature_tier: {
+      creature_form: "creature_pacific",
+      creature_color: "creature_silver",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: 10,
       armor: 14,
@@ -743,12 +743,12 @@ const creatures = [
 
   {
     name: "Cónsul Imperial A-IX",
-    tier: {
-      form: "Pensante",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_gold",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: undefined,
       armor: undefined,
@@ -761,12 +761,12 @@ const creatures = [
 
   {
     name: "Droide Metallurgio",
-    tier: {
-      form: "Alfa",
-      color: "Plata",
+    creature_tier: {
+      creature_form: "creature_alpha",
+      creature_color: "creature_silver",
     },
     habitat: "Metallurgia",
-    biome: "Imperio de Metallurgia",
+    biome: "biome_empire_of_metallurgy",
     stats: {
       hp: 22,
       armor: 16,
@@ -779,12 +779,12 @@ const creatures = [
 
   {
     name: "Cirio Fúnebre",
-    tier: {
-      form: "Menor",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_minor",
+      creature_color: "creature_gold",
     },
     habitat: "Reino Espiritual",
-    biome: "Espiritual",
+    biome: "biome_spiritual_realm",
     stats: {
       hp: 11,
       armor: 13,
@@ -797,12 +797,12 @@ const creatures = [
 
   {
     name: "Kuchisake-onna",
-    tier: {
-      form: "Pensante",
-      color: "Oro",
+    creature_tier: {
+      creature_form: "creature_thinker",
+      creature_color: "creature_gold",
     },
     habitat: "Amuxurá",
-    biome: "Espiritual",
+    biome: "biome_spiritual_realm",
     stats: {
       hp: undefined,
       armor: undefined,
