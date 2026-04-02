@@ -5,9 +5,10 @@ import { TextFilter } from "@/components/filters/TextFilter";
 import { CartDimensions } from "@/constants/carts";
 import { useClassifiers } from "@/hooks/useClassifiers";
 import { useCreatures } from "@/hooks/useCreatures";
+import { useInterval } from "@/hooks/useInterval";
 import { Creature } from "@/types/creature";
 import { ItemList, MultiItemList } from "@/types/filterTypes";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { View, StyleSheet, Text, useWindowDimensions, FlatList, ScrollView, Pressable } from "react-native";
 
 export default function CreaturesScreen() {
@@ -22,8 +23,16 @@ export default function CreaturesScreen() {
   const [habitat, setHabitat] = useState("");
   const [biome, setBiome] = useState("");
   const [name, setName] = useState("");
-  const [hp, setHp] = useState(50);
-  const [armor, setArmor] = useState(50);
+  const {
+    minor: minorHP,
+    higher: higherHP,
+    setInterval: setHP
+  } = useInterval(1,120); 
+  const {
+    minor: minorCA,
+    higher: higherCA,
+    setInterval: setCA
+  } = useInterval(1,50); 
 
   const {
     creature_loading,
@@ -69,6 +78,17 @@ export default function CreaturesScreen() {
         form: tierForm,
         color: tierColor,
       },
+      stats: {
+        hp:{
+          min: minorHP,
+          max: higherHP,
+        },
+        ca:{
+          min: minorCA,
+          max: higherCA,
+        }
+      }
+
     })
   }
 
@@ -102,32 +122,7 @@ export default function CreaturesScreen() {
     }
   ];
 
-  const results = [
-    {
-      image:require("@/assets/images/Lucca_rol.jpeg"),
-      items: {
-        "Filter Tier Forma":{
-          name: "Opcion 1",
-          image: require("@/assets/images/Metallurgia_Bioma.png")
-        },
-        "Filter Tier Color":{
-          name: "Opcion 2",
-          image: require("@/assets/images/Metallurgia_Bioma.png")
-        },
-      }
-    },
-    {
-      image:require("@/assets/images/Lucrezia.jpg"),
-      items: {
-        "Filter Tier Forma":{
-          name: "Opcion 5",
-        },
-        "Filter Tier Color":{
-          name: "Opcion 6",
-        },
-      }
-    }
-  ];
+  const renderCreatureCard = useCallback(({ item }: {item: Creature}) => <CreatureCard creature={item} />,[])
 
   return (
       <View style={styles.container}>
@@ -187,20 +182,22 @@ export default function CreaturesScreen() {
             <View style={styles.rangeFiltersRow}>
               <RangeFilter
                 label="Puntos de salud"
-                min={0}
-                max={50}
-                value={hp}
-                onChange={setHp}
+                min={1}
+                max={120}
+                minorValue={minorHP}
+                higherValue={higherHP}
+                onChange={setHP}
               />
 
                <Pressable style={styles.circle} onPress={filterCreatures}></Pressable>
 
               <RangeFilter
                 label="Puntos de armadura"
-                min={0}
+                min={1}
                 max={50}
-                value={armor}
-                onChange={setArmor}
+                minorValue={minorCA}
+                higherValue={higherCA}
+                onChange={setCA}
               />
             </View>
 
@@ -233,7 +230,7 @@ export default function CreaturesScreen() {
                   contentContainerStyle={styles.cardsContainer}
                   columnWrapperStyle={numColumns > 1 ? styles.row : undefined}
                   keyExtractor={(item) => item.id}
-                  renderItem={({ item }) => <CreatureCard creature={item} />}
+                  renderItem={renderCreatureCard}
                   />
               </ScrollView>
               )

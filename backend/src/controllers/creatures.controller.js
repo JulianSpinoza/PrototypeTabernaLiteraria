@@ -2,7 +2,8 @@ import { Creature } from "../models/Creature.js";
 
 export const getCreatures = async (req, res) => {
   try {
-    const { name, tier, biome, habitat, hpMin, hpMax } = req.query;
+
+    const { name, tier, biome, habitat, stats } = req.query;
 
     const filter = {};
 
@@ -20,15 +21,20 @@ export const getCreatures = async (req, res) => {
       filter["tier.color"] = tier.color;
     }
 
-    // Filtros directos
     if (biome) filter.biome = biome;
+
     if (habitat) filter.habitat = habitat;
 
-    // Filtros anidados para Stats (HP)
-    if (hpMin || hpMax) {
+    if (stats?.hp) {
       filter["stats.hp"] = {};
-      if (hpMin) filter["stats.hp"].$gte = Number(hpMin);
-      if (hpMax) filter["stats.hp"].$lte = Number(hpMax);
+      if (stats?.hp?.min) filter["stats.hp"].$gte = Number(stats?.hp?.min);
+      if (stats?.hp?.max) filter["stats.hp"].$lte = Number(stats?.hp?.max);
+    }
+
+    if (stats?.ca) {
+      filter["stats.armor"] = {};
+      if (stats?.ca?.min) filter["stats.armor"].$gte = Number(stats?.ca?.min);
+      if (stats?.ca?.max) filter["stats.armor"].$lte = Number(stats?.ca?.max);
     }
 
     const creatures = await Creature.find(filter);

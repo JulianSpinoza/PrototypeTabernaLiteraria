@@ -80,7 +80,6 @@ const CreatureSchema = new mongoose.Schema(
       type: {
         hp: {
           type: Number,
-          required: false,
           min: [1, "No puede haber una criatura con vida negativa o nula."],
           validate: {
             validator: Number.isInteger,
@@ -91,7 +90,6 @@ const CreatureSchema = new mongoose.Schema(
 
         armor: {
           type: Number,
-          required: false,
           min: [1, "No puede haber una criatura con armadura negativa o nula."],
           validate: {
             validator: Number.isInteger,
@@ -125,7 +123,8 @@ const CreatureSchema = new mongoose.Schema(
           default: "Con vida",
         },
       },
-      required: true,
+      //Meanwhile development of creatures
+      required: false,
     },
 
     description: {
@@ -188,7 +187,8 @@ const CreatureSchema = new mongoose.Schema(
           },
         },
       },
-      required: true,
+      //Meanwhile development of creatures
+      required: false,
     },
   },
   {

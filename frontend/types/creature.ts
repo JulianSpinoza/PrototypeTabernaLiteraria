@@ -27,7 +27,7 @@ export interface CreatureWideFilter {
       min: number;
       max: number;
     };
-    armor?: {
+    ca?: {
       min: number;
       max: number;
     };
