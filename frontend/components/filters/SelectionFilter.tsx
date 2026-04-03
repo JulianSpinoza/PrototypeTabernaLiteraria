@@ -139,7 +139,21 @@ export function SelectionFilter({llave, value, placeholder, onChange, listOfOpti
         if(searchValue === "") {
             setOptions(listOfOptions);
         } else {
-            const optionsFiltered = listOfOptions.filter((item) => item.name.includes(searchValue));
+            const searchNormalized = searchValue
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+            const optionsFiltered = listOfOptions.filter((item) => {
+                const itemNormalized = item.name
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+
+                return itemNormalized.includes(searchNormalized);
+                
+            });
             setOptions(optionsFiltered);
         }
         setSelected(false);

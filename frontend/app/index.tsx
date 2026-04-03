@@ -9,7 +9,7 @@ import { useInterval } from "@/hooks/useInterval";
 import { Creature } from "@/types/creature";
 import { ItemList, MultiItemList } from "@/types/filterTypes";
 import { useCallback, useEffect, useState } from "react";
-import { View, StyleSheet, Text, useWindowDimensions, FlatList, ScrollView, Pressable } from "react-native";
+import { View, StyleSheet, Text, useWindowDimensions, FlatList, ScrollView, Pressable, ActivityIndicator } from "react-native";
 
 export default function CreaturesScreen() {
 
@@ -62,11 +62,19 @@ export default function CreaturesScreen() {
     fetchClassifier: fetchCreatureTiers,
   } = useClassifiers<MultiItemList[]>([]);
 
+  const {
+    classifier_loading: biome_loading,
+    classifier_error: biome_error,
+    classifiers: biomes,
+    fetchClassifier: fetchBiomes,
+  } = useClassifiers<ItemList[]>([]);
+
   useEffect(() => {
     fetchCreatures({});
     fetchCreatureColors("creature_color");
     fetchCreatureForms("creature_form");
     fetchCreatureTiers("creature_tier");
+    fetchBiomes("biome")
   },[]);
 
   const filterCreatures = () => {
@@ -92,36 +100,6 @@ export default function CreaturesScreen() {
     })
   }
 
-  const options = [
-    {
-      slug: "a",
-      name: "Opcion 1",
-      image: require("@/assets/images/Metallurgia_Bioma.png")
-    },
-    {
-      slug: "a",
-      name: "Opcion 2",
-      image: require("@/assets/images/Metallurgia_Bioma.png")
-    },
-    {
-      slug: "a",
-      name: "Opcion 3",
-      image: require("@/assets/images/Metallurgia_Bioma.png")
-    },
-    {
-      slug: "a",
-      name: "Opcion 4"
-    },
-    {
-      slug: "a",
-      name: "Opcion 5"
-    },
-    {
-      slug: "a",
-      name: "Opcion 6"
-    }
-  ];
-
   const renderCreatureCard = useCallback(({ item }: {item: Creature}) => <CreatureCard creature={item} />,[])
 
   return (
@@ -138,7 +116,7 @@ export default function CreaturesScreen() {
                   value:biome,
                   onChange:setBiome,
                 }}
-                listOfOptions={options} 
+                listOfOptions={biomes} 
               />
               <MultiSelectionFilter 
                 filters={[
@@ -163,15 +141,13 @@ export default function CreaturesScreen() {
                 ]}
                 listOfResults={creature_tiers}
               />
-              <SingleSelectionFilter 
-                llave="Filter Habitat"
-                textInput={{
-                  placeholder:"Habitat" ,
-                  value:habitat ,
-                  onChange:setHabitat,
-                }}
-                listOfOptions={options} 
+
+              <TextFilter 
+                placeholder="Habitat" 
+                value={habitat} 
+                onChange={setHabitat} 
               />
+
             </View>
 
             <View style={styles.nameFilter}>
@@ -201,40 +177,41 @@ export default function CreaturesScreen() {
               />
             </View>
 
+            <View style={styles.main_container}>
+              {/* creature_loading */}
+              {creature_loading && (
+                <ActivityIndicator size="large" color="#ffffff" />
+              )}
 
-            {/* creature_loading */}
-            {creature_loading && (
-              <Text>creature_loading...</Text> 
-            )}
+              {/* creature_error */}
+              {creature_error && (
+                <Text style={styles.text}>{creature_error}</Text> 
+              )}
 
-            {/* creature_error */}
-            {creature_error && (
-              <Text>{creature_error}</Text> 
-            )}
+              {/* Empty Space */}
+              {//!creature_loading && !creature_error && creatures. (
+                //<Text>{creature_error}</Text> 
+              //)
+              }
 
-            {/* Empty Space */}
-            {//!creature_loading && !creature_error && creatures. (
-              //<Text>{creature_error}</Text> 
-            //)
-            }
-
-            {/* Carts */}
-            {!creature_loading && !creature_error && (
-              <ScrollView>
-                <FlatList
-                  key={numColumns}
-                  data={creatures}
-                  //horizontal
-                  numColumns={numColumns}
-                  showsHorizontalScrollIndicator={false}
-                  contentContainerStyle={styles.cardsContainer}
-                  columnWrapperStyle={numColumns > 1 ? styles.row : undefined}
-                  keyExtractor={(item) => item.id}
-                  renderItem={renderCreatureCard}
-                  />
-              </ScrollView>
-              )
-            }
+              {/* Carts */}
+              {!creature_loading && !creature_error && (
+                <ScrollView>
+                  <FlatList
+                    key={numColumns}
+                    data={creatures}
+                    //horizontal
+                    numColumns={numColumns}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.cardsContainer}
+                    columnWrapperStyle={numColumns > 1 ? styles.row : undefined}
+                    keyExtractor={(item) => item.id}
+                    renderItem={renderCreatureCard}
+                    />
+                </ScrollView>
+                )
+              }
+            </View>
       </View>
         
   );
@@ -246,11 +223,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#1a0d0a",
     paddingTop: 40,
   },
+  main_container:{
+    flex: 1,
+    justifyContent: 'center',
+  },
   title: {
     fontSize: 36,
     color: "#fff",
     textAlign: "center",
     marginBottom: 24,
+  },
+  text: {
+    fontSize: 20,
+    color: "#fff",
+    textAlign: "center",
   },
   textFiltersRow: {
     flexDirection: "row",
