@@ -10,7 +10,7 @@ export function useAPIState() {
   }
 
   const handleError = (err:any) => {
-    console.error(err);
+    console.error(err.message);
     setError(err.message || "Unexpected error");
   };
 

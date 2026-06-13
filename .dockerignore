@@ -1,0 +1,14 @@
+node_modules
+.pnpm-store
+
+.git
+.gitignore
+
+Dockerfile
+docker-compose.yml
+
+**/node_modules
+**/.expo
+**/.next
+
+.env
