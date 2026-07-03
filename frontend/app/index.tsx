@@ -189,10 +189,9 @@ export default function CreaturesScreen() {
               )}
 
               {/* Empty Space */}
-              {//!creature_loading && !creature_error && creatures. (
-                //<Text>{creature_error}</Text> 
-              //)
-              }
+              {!creature_loading && !creature_error && creatures?.length === 0 && (
+                <Text style={styles.text}>No existen criaturas</Text> 
+              )}
 
               {/* Carts */}
               {!creature_loading && !creature_error && (
