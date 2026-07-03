@@ -97,6 +97,19 @@ const CreatureSchema = new mongoose.Schema(
               "Error en el campo {PATH}: {VALUE} no es un número entero.",
           },
         },
+
+        movement: {
+          type: Number,
+          min: [
+            1,
+            "No puede haber una criatura con un movimiento negativo o nulo.",
+          ],
+          validate: {
+            validator: Number.isInteger,
+            message:
+              "Error en el campo {PATH}: {VALUE} no es un número entero.",
+          },
+        },
       },
       required: false,
     },
@@ -123,7 +136,7 @@ const CreatureSchema = new mongoose.Schema(
           default: "Con vida",
         },
       },
-      //Meanwhile development of creatures
+      // Meanwhile development of creatures
       required: false,
     },
 
@@ -132,8 +145,14 @@ const CreatureSchema = new mongoose.Schema(
     },
 
     habilities: {
-      type: Array,
-      default: [],
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Skill",
+        },
+      ],
+      // Meanwhile development of creatures
+      required: false,
     },
 
     attributes: {
