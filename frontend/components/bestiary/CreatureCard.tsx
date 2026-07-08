@@ -31,7 +31,8 @@ export function CreatureCard({creature}: Props) {
     >
       <Animated.View style={[styles.card, animatedStyle]}>
         <Image 
-          source={{ uri:creature.image.url }} 
+          source={{ uri:creature.image.url }}
+          alt={ creature.image.alt }
           style={styles.image}  />
       </Animated.View>
     </Pressable>
