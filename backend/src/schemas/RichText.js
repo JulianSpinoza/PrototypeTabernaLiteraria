@@ -10,12 +10,17 @@ const TextSchema = new mongoose.Schema(
   { discriminatorKey: "typeText", _id: false },
 );
 
-const ConceptualTextSchema = new mongoose.Schema({
+// Planing on to do it variable reference...
+// or more discriminators?
+const ConceptualTextSchema = new mongoose.Schema(
+  {
     definition: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Classifier',
-    }
-});
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Classifier",
+    },
+  },
+  { _id: false },
+);
 
 export const RichTextSchema = new mongoose.Schema({
   blocks: {
