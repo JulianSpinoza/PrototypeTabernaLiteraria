@@ -1,5 +1,3 @@
-
-
-export const CartDimensions = {
-    width: 300
+export const CreatureCartDimensions = {
+    aspectRadio: 517 / 750,
 }

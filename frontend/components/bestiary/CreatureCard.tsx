@@ -1,5 +1,5 @@
 // components/cards/CreatureCard.tsx
-import { CartDimensions } from "@/constants/carts";
+import { CreatureCartDimensions } from "@/constants/carts";
 import { Creature } from "@/types/creature";
 import { Image,  StyleSheet, Pressable } from "react-native";
 
@@ -39,8 +39,8 @@ export function CreatureCard({creature}: Props) {
   );
 }
 
-const ASPECT_RATIO = 517 / 750;
-const CARD_WIDTH = CartDimensions.width;
+const ASPECT_RATIO = CreatureCartDimensions.aspectRadio;
+const CARD_WIDTH = 300;
 
 const styles = StyleSheet.create({
   cardContainer: {

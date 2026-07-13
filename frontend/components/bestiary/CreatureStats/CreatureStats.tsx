@@ -6,16 +6,19 @@ interface Stat {
   shortLabel: string;
   value: number;
   frame: any;
-  statColor: string;
-  modifierColor: string;
 }
 
 interface CreatureStatsProps {
   stats: Stat[];
+  colors: {
+    statColor: string;
+    modifierColor: string;
+  }
 }
 
 export default function CreatureStats({
   stats,
+  colors
 }: CreatureStatsProps) {
   return (
     <View style={styles.container}>
@@ -31,8 +34,8 @@ export default function CreatureStats({
             abbreviation={item.shortLabel}
             value={item.value}
             frame={item.frame}
-            statColor={item.statColor}
-            modifierColor={item.modifierColor}
+            statColor={colors.statColor}
+            modifierColor={colors.modifierColor}
           />
         )}
       />

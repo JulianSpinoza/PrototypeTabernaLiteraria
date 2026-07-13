@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { NativeStackHeaderProps, NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import { RutasPrincipales, useRutas } from "@/hooks/useRutas"; // Revisar posible hook
 import { useEffect } from "react";
+import { topBarDimensions } from "@/constants/bars";
 
 export type CustomOptions = NativeStackNavigationOptions & {
   rutasAdicionales?: RutasPrincipales | RutasPrincipales[];
@@ -40,7 +41,7 @@ export function DefaultHeader ({navigation,route,options,back}:DefaultHeaderProp
     return (
         <View style= {{ 
             justifyContent:"center", 
-            height:150, 
+            height: topBarDimensions.height, 
             backgroundColor: bgColor,
             }}>
             <View style= {{
