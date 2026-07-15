@@ -1,7 +1,12 @@
 import CreatureDetailCard from "@/components/bestiary/CreatureDetailCard";
 import CreatureStats from "@/components/bestiary/CreatureStats/CreatureStats";
+import { CreatureCartDimensions } from "@/constants/carts";
 import { useLocalSearchParams } from "expo-router";
-import { ScrollView, StyleSheet, View } from "react-native";
+import { useMemo, useState } from "react";
+import { LayoutChangeEvent, ScrollView, StyleSheet, View } from "react-native";
+
+
+const RIGHT_PANEL_MIN_WIDHT = 500;
 
 export default function CreatureDetailScreen() {
 
@@ -41,71 +46,191 @@ export default function CreatureDetailScreen() {
         },
     };
 
+    const [contentSize, setContentSize] = useState({
+        width: 0,
+        height: 0,
+    })
+
+    const layout = useMemo(() => {
+        if(!contentSize.width || !contentSize.height) {
+            return {
+                isVertical:false,
+                cardWidth: 400, // Numero de prueba?
+                cardHeight: 420,
+            };
+        }
+
+        const cardHeight = contentSize.height;
+
+        const cardWidth = cardHeight * CreatureCartDimensions.aspectRadio;
+
+        const remainingWidth =
+            contentSize.width -
+            cardWidth;
+
+        const isVertical = remainingWidth < RIGHT_PANEL_MIN_WIDHT;
+
+        return {
+            isVertical,
+            cardWidth,
+            cardHeight,
+        }
+
+    }, [contentSize])
+
+    const handleContentLayout = (event: LayoutChangeEvent) => {
+
+        const {width, height} = event.nativeEvent.layout;
+
+        setContentSize({
+            width,
+            height
+        })
+
+    }
+
     return (
-        <ScrollView 
+        <View
             style={styles.container}
-            contentContainerStyle={styles.scrollContent}
+            onLayout={handleContentLayout}
         >
+            {
+                layout.isVertical ? (
 
-            <View style={styles.leftContainer}>
+                    <ScrollView
+                        contentContainerStyle={styles.verticalContent}
+                    >
+                        <View style ={styles.verticalLeftPanel}>
+                            <CreatureDetailCard 
+                                creatureDetail={creatureMock}
+                                backgroundColor="#397C4F"
+                            />
+                        </View>
 
-                <CreatureDetailCard 
-                    creatureDetail={creatureMock}
-                    backgroundColor="#397C4F"
-                />
+                        <View style= {styles.verticalRightPanel}>
 
-            </View>
+                            <CreatureStats stats={
+                                [
+                                    {
+                                        label: "Fuerza",
+                                        shortLabel: "STR",
+                                        value: creatureMock.attributes.strength,
+                                        frame: require("@/assets/images/MarcoStats.png"),
+                                    },
+                                    {
+                                        label: "Inteligencia",
+                                        shortLabel: "STR",
+                                        value: creatureMock.attributes.strength,
+                                        frame: require("@/assets/images/MarcoStats.png"),
+                                    },
+                                    {
+                                        label: "Constitución",
+                                        shortLabel: "CON",
+                                        value: creatureMock.attributes.constitution,
+                                        frame: require("@/assets/images/MarcoStats.png"),
+                                    },
+                                    {
+                                        label: "Fuerza",
+                                        shortLabel: "STR",
+                                        value: creatureMock.attributes.strength,
+                                        frame: require("@/assets/images/MarcoStats.png"),
+                                    },
+                                    {
+                                        label: "Fuerza",
+                                        shortLabel: "STR",
+                                        value: creatureMock.attributes.strength,
+                                        frame: require("@/assets/images/MarcoStats.png"),
+                                    },
+                                    {
+                                        label: "Fuerza",
+                                        shortLabel: "STR",
+                                        value: creatureMock.attributes.strength,
+                                        frame: require("@/assets/images/MarcoStats.png"),
+                                    },
+                                ]}
+                                colors={{
+                                    statColor: "#397C4F",
+                                    modifierColor: "#F1E2A0",
+                                }}
+                            />
 
-            <View style={styles.rightContainer}>
+                        </View>
 
-                <CreatureStats stats={
-                    [
-                        {
-                            label: "Fuerza",
-                            shortLabel: "STR",
-                            value: creatureMock.attributes.strength,
-                            frame: require("@/assets/images/MarcoStats.png"),
-                        },
-                        {
-                            label: "Inteligencia",
-                            shortLabel: "STR",
-                            value: creatureMock.attributes.strength,
-                            frame: require("@/assets/images/MarcoStats.png"),
-                        },
-                        {
-                            label: "Constitución",
-                            shortLabel: "CON",
-                            value: creatureMock.attributes.constitution,
-                            frame: require("@/assets/images/MarcoStats.png"),
-                        },
-                        {
-                            label: "Fuerza",
-                            shortLabel: "STR",
-                            value: creatureMock.attributes.strength,
-                            frame: require("@/assets/images/MarcoStats.png"),
-                        },
-                        {
-                            label: "Fuerza",
-                            shortLabel: "STR",
-                            value: creatureMock.attributes.strength,
-                            frame: require("@/assets/images/MarcoStats.png"),
-                        },
-                        {
-                            label: "Fuerza",
-                            shortLabel: "STR",
-                            value: creatureMock.attributes.strength,
-                            frame: require("@/assets/images/MarcoStats.png"),
-                        },
-                    ]}
-                    colors={{
-                        statColor: "#397C4F",
-                        modifierColor: "#F1E2A0",
-                    }}
-                />
+                    </ScrollView>
 
-            </View>
+                ) : (
 
-        </ScrollView>
+                    <View style={styles.horizontalContent}>
+
+                        <View style={[
+                            styles.leftPanel,
+                            {
+                                width:layout.cardWidth,
+                            }
+                        ]}>
+
+                            <CreatureDetailCard 
+                                creatureDetail={creatureMock}
+                                backgroundColor="#397C4F"
+                            />
+
+                        </View>
+
+                        <View style={styles.rightPanel}>
+                             
+                            <CreatureStats stats={
+                                [
+                                    {
+                                        label: "Fuerza",
+                                        shortLabel: "STR",
+                                        value: creatureMock.attributes.strength,
+                                        frame: require("@/assets/images/MarcoStats.png"),
+                                    },
+                                    {
+                                        label: "Inteligencia",
+                                        shortLabel: "STR",
+                                        value: creatureMock.attributes.strength,
+                                        frame: require("@/assets/images/MarcoStats.png"),
+                                    },
+                                    {
+                                        label: "Constitución",
+                                        shortLabel: "CON",
+                                        value: creatureMock.attributes.constitution,
+                                        frame: require("@/assets/images/MarcoStats.png"),
+                                    },
+                                    {
+                                        label: "Fuerza",
+                                        shortLabel: "STR",
+                                        value: creatureMock.attributes.strength,
+                                        frame: require("@/assets/images/MarcoStats.png"),
+                                    },
+                                    {
+                                        label: "Fuerza",
+                                        shortLabel: "STR",
+                                        value: creatureMock.attributes.strength,
+                                        frame: require("@/assets/images/MarcoStats.png"),
+                                    },
+                                    {
+                                        label: "Fuerza",
+                                        shortLabel: "STR",
+                                        value: creatureMock.attributes.strength,
+                                        frame: require("@/assets/images/MarcoStats.png"),
+                                    },
+                                ]}
+                                colors={{
+                                    statColor: "#397C4F",
+                                    modifierColor: "#F1E2A0",
+                                }}
+                            />
+
+                        </View>
+
+                    </View>
+
+                )
+            }
+
+        </View>
     );
 
 }
@@ -115,25 +240,38 @@ const styles = StyleSheet.create({
     flex:1,
     backgroundColor: "#1a0d0a",
   },
-  scrollContent: {
-    flexGrow: 1,
-    flexDirection: "row",
-    flexWrap: "wrap", // Permite que el segundo panel baje si no hay espacio
+  verticalContent: {
+    padding: 20,
+    gap: 5,
   },
-  leftContainer: {
-    // En pantallas grandes ocupa un mínimo de 400px, pero crece si es necesario
-    flexGrow: 1,
-    flexBasis: 600,
-    height: "100%",
-    maxWidth:800, 
-    padding: 50,
+
+  verticalLeftPanel: {
+    width: "100%",
+    alignItems: "center",
   },
-  rightContainer: {
-    // En pantallas grandes ocupa un mínimo de 600px, pero crece si es necesario
-    flexGrow: 1,
-    height: "100%",
-    flexBasis: 400,
-    paddingHorizontal: 50, 
-    backgroundColor: "blue",
-  }
+
+  verticalRightPanel: {
+    width: "100%",
+    backgroundColor: "red",
+  },
+
+  horizontalContent: {
+    flex: 1,
+    flexDirection:"row",
+    padding: 20,
+    gap: 5,
+    justifyContent:"center",
+  },
+
+  rightPanel: {
+    flex:1,
+    backgroundColor:"yellow",
+    maxWidth:800,
+  },
+
+  leftPanel: {
+    justifyContent:"center",
+    alignItems:"center",
+  },
+
 });

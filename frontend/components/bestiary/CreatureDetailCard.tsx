@@ -21,11 +21,13 @@ import { CreatureCartDimensions } from "@/constants/carts";
 type Props = {
 	creatureDetail: SpecificCreature
 	backgroundColor?: string
+	width?: number
 }
 
 export default function CreatureDetailCard({
 	creatureDetail,
 	backgroundColor = "#1F1F1F",
+	width,
 }: Props) {
 
 	const [expanded, setExpanded] = useState(false);
@@ -50,7 +52,7 @@ export default function CreatureDetailCard({
 
 		} else {
 			Animated.timing(fadeAnim, {
-				toValue: 0.3,
+				toValue: 0,
 				duration: 300,
 				useNativeDriver: true,
 			}).start();
@@ -59,7 +61,17 @@ export default function CreatureDetailCard({
 
 	return (
 
-		<View style = {styles.container} >
+		<View style = {[
+				styles.container,
+				width ? {
+					width,
+					aspectRatio: CreatureCartDimensions.aspectRadio
+				} : {
+					width: "100%",
+					aspectRatio: CreatureCartDimensions.aspectRadio
+				} 
+			]} 
+		>
 
 			<Pressable 
 				onPress = {handlePress}
@@ -108,13 +120,15 @@ const CARD_MIN_WIDTH = 300;
 
 const styles = StyleSheet.create({
 	container: {
-		minWidth: CARD_MIN_WIDTH,
-		width: "100%",
-   		height: "100%",
+
+		//minWidth: CARD_MIN_WIDTH,
+		//width: "100%",
+   		//height: "100%",
 	},
 	card: {
-		width: "100%",
-		height: "100%",
+		width: "90%",
+		height: "90%",
+		margin: "5%",
 	},
 	image: {
 		height: "100%",
@@ -122,5 +136,6 @@ const styles = StyleSheet.create({
 	},
 	overlay: {
 		...StyleSheet.absoluteFillObject,
+
 	}
 });
