@@ -1,5 +1,7 @@
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, LayoutChangeEvent, StyleSheet, View } from "react-native";
 import StatCard from "./StatCard";
+import { useState } from "react";
+import { StatCartDimensions } from "@/constants/carts";
 
 interface Stat {
   label: string;
@@ -20,11 +22,38 @@ export default function CreatureStats({
   stats,
   colors
 }: CreatureStatsProps) {
+
+  const [contentSize, setContentSize] = useState({
+    width: 0,
+    height: 0,
+  })
+
+  const numColumns = 
+    contentSize.width > (StatCartDimensions.width+(StatCartDimensions.margin*2))*6 ? 6 : 3;
+
+  const handleContentLayout = (event: LayoutChangeEvent) => {
+    
+    const {width, height} = event.nativeEvent.layout;
+
+    console.log(width);
+    console.log("AA", (StatCartDimensions.width+(StatCartDimensions.margin*2))*6)
+
+    setContentSize({
+      width,
+      height
+    })
+
+  }
+
   return (
-    <View style={styles.container}>
+    <View 
+      style={styles.container}
+      onLayout={handleContentLayout}
+    >
       <FlatList
+        key={numColumns}
         data={stats}
-        numColumns={6}
+        numColumns={numColumns}
         keyExtractor={(item) => item.shortLabel}
         columnWrapperStyle={styles.row}
         scrollEnabled={false}
@@ -45,11 +74,13 @@ export default function CreatureStats({
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: "90%",
+    margin: "5%",
+    backgroundColor:"blue"
   },
 
   row: {
-    justifyContent: "space-around",
-    marginBottom: 20,
+    justifyContent: "space-evenly",
+    marginVertical: 20,
   },
 });

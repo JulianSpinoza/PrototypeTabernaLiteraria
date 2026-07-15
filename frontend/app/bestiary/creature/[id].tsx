@@ -3,7 +3,7 @@ import CreatureStats from "@/components/bestiary/CreatureStats/CreatureStats";
 import { CreatureCartDimensions } from "@/constants/carts";
 import { useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
-import { LayoutChangeEvent, ScrollView, StyleSheet, View } from "react-native";
+import { LayoutChangeEvent, Text, ScrollView, StyleSheet, View } from "react-native";
 
 
 const RIGHT_PANEL_MIN_WIDHT = 500;
@@ -223,6 +223,10 @@ export default function CreatureDetailScreen() {
                                 }}
                             />
 
+                            
+
+                            
+
                         </View>
 
                     </View>
@@ -266,7 +270,7 @@ const styles = StyleSheet.create({
   rightPanel: {
     flex:1,
     backgroundColor:"yellow",
-    maxWidth:800,
+    maxWidth:900,
   },
 
   leftPanel: {

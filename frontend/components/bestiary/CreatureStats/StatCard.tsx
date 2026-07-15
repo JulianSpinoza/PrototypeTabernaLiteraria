@@ -1,3 +1,4 @@
+import { StatCartDimensions } from "@/constants/carts";
 import {
   ImageBackground,
   StyleSheet,
@@ -18,7 +19,8 @@ interface StatCardProps {
   size?: number;
 }
 
-const ASPECT_RATIO_CARD = 95 / 150;
+const ASPECT_RATIO_CARD = StatCartDimensions.aspectRadio;
+const MARGIN = StatCartDimensions.margin;
 const ASPECT_RATIO_TITLE =  11 / 95;
 const ASPECT_RATIO_VALUE =  50 / 95;
 const ASPECT_RATIO_ABBREVIATION =  30 / 95;
@@ -30,7 +32,7 @@ export default function StatCard({
   frame,
   statColor,
   modifierColor,
-  size = 95,
+  size = StatCartDimensions.width,
 }: StatCardProps) {
   return (
     <View style={[styles.container, { width: size }]}>
@@ -104,6 +106,7 @@ const styles = StyleSheet.create({
   container: {
     position: "relative",
     aspectRatio: ASPECT_RATIO_CARD,
+    margin: MARGIN,
   },
 
   statBackground: {

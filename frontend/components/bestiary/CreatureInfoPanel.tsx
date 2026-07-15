@@ -33,9 +33,9 @@ export default function CreatureInfoPanel({
       <InfoRow label="Tier Poder:" value={tier.power} />
       {stats !== undefined && (
         <>
-            <InfoRow label="HP:" value={stats.hp.toString()} />
-            <InfoRow label="Armadura:" value={stats.armor.toString()} />
-            <InfoRow label="Movimiento:" value={stats.movement.toString()} />
+            <InfoRow label="Puntos de Golpe:" value={stats.hp.toString()+" HP"} />
+            <InfoRow label="Clase de Armadura:" value={stats.armor.toString()+" CA"} />
+            <InfoRow label="Casillas de Movimiento:" value={stats.movement.toString()+" casillas"} />
             <InfoRow label="Tamaño:" value={stats.size} />
         </>
       )}
@@ -51,10 +51,10 @@ interface InfoRowProps {
 function InfoRow({ label, value }: InfoRowProps) {
   return (
     <View style={styles.row}>
-      <View style={[styles.column, {alignItems: "flex-end"}]}>
-        <Text adjustsFontSizeToFit style={styles.label}>{label}</Text>
+      <View style={[styles.column, {width: "40%", alignItems: "flex-end"}]}>
+        <Text style={styles.label}>{label}</Text>
       </View>
-      <View style={[styles.column, {alignItems: "flex-start"}]}>
+      <View style={[styles.column, {width: "20%",alignItems: "flex-start"}]}>
         <Text style={styles.value}>{value}</Text>
       </View>
     </View>
@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
   },
 
   column: {
-    width: "50%",
     marginHorizontal: "2%",
   },
 
@@ -84,6 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "600",
     color: "#D9D9D9",
+    textAlign: "right",
   },
 
   value: {
