@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import Ability from "./Ability";
 
 export default function CreaturesAbilities () {
 
@@ -12,11 +13,12 @@ export default function CreaturesAbilities () {
                 {"Habilidades"}
             </Text>
 
-            <View
+            <ScrollView
                 style={styles.list}
             >
+                <Ability/>
                 
-            </View>
+            </ScrollView>
         </View>
     );
 
@@ -24,15 +26,19 @@ export default function CreaturesAbilities () {
 
 const styles = StyleSheet.create({
     container:{
-        justifyContent:"center",
-        backgroundColor:"purple"
+        width: "90%",
+        marginHorizontal: "5%",
+        backgroundColor:"purple",
+        
     },
     title:{
         textAlign:"center",
-        fontSize:40,
-        backgroundColor:"red"
+        alignContent:"center",
+        fontSize:35,
+        //backgroundColor:"red",
     },
     list:{
-
+        flex:1,
+        paddingVertical: 10,
     }
 })

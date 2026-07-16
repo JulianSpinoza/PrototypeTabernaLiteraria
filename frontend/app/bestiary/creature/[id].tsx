@@ -7,7 +7,7 @@ import { useMemo, useState } from "react";
 import { LayoutChangeEvent, Text, ScrollView, StyleSheet, View } from "react-native";
 
 
-const RIGHT_PANEL_MIN_WIDHT = 500;
+const RIGHT_PANEL_MIN_WIDHT = 400;
 
 export default function CreatureDetailScreen() {
 
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
   rightPanel: {
     flex:1,
     backgroundColor:"yellow",
-    maxWidth:900,
+    maxWidth:800,
   },
 
   leftPanel: {

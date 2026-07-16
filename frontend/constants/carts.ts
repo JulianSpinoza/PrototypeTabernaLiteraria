@@ -5,7 +5,7 @@ export const CreatureCartDimensions = {
 }
 
 export const StatCartDimensions = {
-    width: 100,
+    width: 80,
     margin: 10,
     aspectRadio: 95 / 150,
 };

@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
 
   row: {
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     marginVertical: 10,
   },
 });
