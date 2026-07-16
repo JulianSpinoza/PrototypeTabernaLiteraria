@@ -35,9 +35,6 @@ export default function CreatureStats({
     
     const {width, height} = event.nativeEvent.layout;
 
-    console.log(width);
-    console.log("AA", (StatCartDimensions.width+(StatCartDimensions.margin*2))*6)
-
     setContentSize({
       width,
       height
@@ -75,12 +72,13 @@ export default function CreatureStats({
 const styles = StyleSheet.create({
   container: {
     width: "90%",
-    margin: "5%",
+    marginHorizontal: "5%",
+    marginVertical:20,
     backgroundColor:"blue"
   },
 
   row: {
     justifyContent: "space-evenly",
-    marginVertical: 20,
+    marginVertical: 10,
   },
 });

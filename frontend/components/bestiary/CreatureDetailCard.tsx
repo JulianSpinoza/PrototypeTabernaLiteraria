@@ -121,7 +121,7 @@ const CARD_MIN_WIDTH = 300;
 const styles = StyleSheet.create({
 	container: {
 
-		//minWidth: CARD_MIN_WIDTH,
+		minWidth: CARD_MIN_WIDTH,
 		//width: "100%",
    		//height: "100%",
 	},
@@ -136,6 +136,5 @@ const styles = StyleSheet.create({
 	},
 	overlay: {
 		...StyleSheet.absoluteFillObject,
-
 	}
 });

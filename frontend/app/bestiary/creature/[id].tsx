@@ -1,3 +1,4 @@
+import CreaturesAbilities from "@/components/bestiary/CreatureAbilities/CreatureAbilities";
 import CreatureDetailCard from "@/components/bestiary/CreatureDetailCard";
 import CreatureStats from "@/components/bestiary/CreatureStats/CreatureStats";
 import { CreatureCartDimensions } from "@/constants/carts";
@@ -222,10 +223,8 @@ export default function CreatureDetailScreen() {
                                     modifierColor: "#F1E2A0",
                                 }}
                             />
-
                             
-
-                            
+                            <CreaturesAbilities/>
 
                         </View>
 
@@ -245,7 +244,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#1a0d0a",
   },
   verticalContent: {
-    padding: 20,
+    paddingHorizontal: 20,
     gap: 5,
   },
 
@@ -256,7 +255,7 @@ const styles = StyleSheet.create({
 
   verticalRightPanel: {
     width: "100%",
-    backgroundColor: "red",
+    backgroundColor: "yellow",
   },
 
   horizontalContent: {
